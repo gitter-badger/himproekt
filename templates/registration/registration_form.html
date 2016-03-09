@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="breadcrumbs">
+   <a href="/">Главная</a> » Страница регистрации
+</div>
+<h2>Регистрация</h2>
+    {% include "menu.html" %}
+<div id="right_menu">
+  <div class="form-wrapper">
+    <div class="linker">
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+    </div>
+    <form method="post" action="" id="registration_form" class="login-form">
+    {% csrf_token %}
+    {% for field in form %}
+        {% if field.is_hidden %}
+            <p class="hidden">{{ field.label_tag }}</p>
+            <p class="clearfix hidden">{{ field }}</p>
+        {% else %}
+            {{ field }}
+            {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
+            {% if field.errors %}<div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
+        {% endif %}
+    {% endfor %}
+    <button type="submit">Зарегистрироваться</button>
+    </form>
+    </div>
+</div>
+{% endblock %}

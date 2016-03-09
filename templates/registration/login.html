@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+        <div id="breadcrumbs">
+        <a href="/">Главная</a> » Страница авторизации
+    </div>
+    {% if user.is_authenticated %}
+    <h2>Добро пожаловать {{ user.username }}</h2>
+        {% include "menu.html" %}
+        <a href="/accounts/logout/">Выйти из аккаунта</a>
+    {% else %}
+<h2>Пожалуйста авторизируйтесь</h2>
+    {% include "menu.html" %}
+    <div id="right_menu">
+  <div class="form-wrapper">
+    <div class="linker">
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+    </div>
+    <form action="{% url django.contrib.auth.views.login %}" method="post" class="login-form">
+    {% csrf_token %}
+    <table>
+        {{ form.username }}
+        {{ form.password }}
+        <input type="hidden" name="next" value="/production/">
+        <button type="submit">{% trans "Log in" %}</button>
+        <a href="/accounts/register/" class="register">Зарегистрироваться</a>
+    </form>
+    </div>
+</div>
+    {% endif %}
+{% endblock %}

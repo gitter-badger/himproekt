@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block content %}
+    <section>
+    <div id="breadcrumbs">
+        <a href="/">Главная</a> » Популярное
+    </div>
+    <div id="socseti">
+    <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter,viber"></div>
+    </div>
+    <h2 class="only_cat">Популярное</h2>
+	<ul id="catalog">
+	    {% for article in popular_product %}
+	    <li>
+            <a href="{{ article.main_category.get_absolute_url }}">
+                <p>{{ article.name }}</p>
+                {% thumbnail article.main_category.image "180x140" crop='center' as im %}
+                <img src="{{ im.url }}" alt="{{ child.name }}">
+                {% endthumbnail %}
+                <p class="slide_price">{{ article.price }} грн.</p>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

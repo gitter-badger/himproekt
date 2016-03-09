@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% comment %}
+{% load i18n cache mptt_tags %}
+{% endcomment %}
+{% load i18n %}
+{% load mptt_tags %}
+{% load thumbnail %}
+<html>
+    <head>
+		<link href="{{ MEDIA_URL }}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta http-equiv="X-UA-Compatible" content="IE=8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="viewport" content="target-densitydpi=device-dpi" />
+        <meta name="keywords" content="{% block keywords %}Himproekt.com{% endblock %}">
+        <meta name="description" content="{% block description %}Himproekt.com{% endblock %}">
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href="{{ MEDIA_URL }}css/style.css" type="text/css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+        <title>{% block title %}Himproekt{% endblock %}</title>
+        <script src="{{ MEDIA_URL }}js/jquery-1.8.2.min.js"></script>
+		<script src="{{ MEDIA_URL }}js/jquery.bxSlider.min.js" type="text/javascript"></script>
+        <script src="{{ MEDIA_URL }}js/script.js" type="text/javascript"></script>
+        <script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
+ -      <script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
+        {% block extrahead %}{% endblock %}
+    </head>
+    <body>
+    {{ constants.yandex_counter|safe }}
+	<header>
+        <a href="/" id="logo"></a>
+        <div id="top_menu">
+            <a href="/about/">О Магазине</a> |
+            <a href="/">Сотрудничество</a> |
+            <a href="/">Для конкурентов</a> |
+            <a href="/">Доставка и оплата</a> |
+            <a href="/">Оформление заказа</a> |
+            <a href="/">Контакты</a>
+        </div>
+        <a href="/eshop/cart/" id="bag">У вас <span id="cart-quantity"></span> заказов на сумму <span id="cart-price"></span> грн.</a>
+        <form action="{% url search %}" method="get" class="search">
+            <input type="search" name="q" placeholder="поиск" class="input" />
+            <input type="submit" value="" class="submit" />
+        </form>
+        <nav class="topnav">
+            <ul>
+            {% for category in root_categories %}
+            <li>{% if category.children %}<a href="{{ category.get_absolute_url }}" class="parent">{{ category.name }}</a>{% else %}
+                <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                {% endif %}
+                {% if category.children %}
+                <ul>{% for child in category.children.all %}
+                    <li><a href="{{ child.get_absolute_url }}">{{ child.name }}</a></li>{% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% block main_image %}<img src="{{ MEDIA_URL }}img/himproekt_index.jpg" class="main_pic">{% endblock %}
+        </nav>
+	</header>
+    {% block index %}
+    <main>
+    {% block content %}
+    {% endblock %}
+    {% endblock %}
+    </main>
+    <footer>
+        <p>Интернет-магазин лакокрасочной продукции "ХИМПРОЕКТ"</p>
+        <p>Дальницкая 44, Одесса, Одесская область, Украина</p>
+        <p>Телефон: +380 (63) 474-78-41, +380 (48) 731-24-77</p>
+    </footer>
+	{{ constants.google_analytics|safe }}
+	<span id="item-add-box" class="item_add_hidden">Товар добавлен в корзину!</span>
+    <script src="{{ MEDIA_URL }}js/lightbox.js" type="text/javascript"></script>
+    </body>
+</html>

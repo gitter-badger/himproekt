@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block description %}
+    {% block title %}{% block keywords %}Корзина покупателя{% endblock %} :: {{ block.super }}{% endblock %}
+{% endblock %}
+{% block content %}
+<section>
+    <div id="breadcrumbs"><a href="/">Главная</a> » Корзина покупателя</div>
+    <h2 class="only_cat">Оформить заказ</h2>
+    <table id="artile-table-list">
+		<form name="cart" method="post" action="{% url send_cart %}">
+			{% csrf_token %}
+			<tr>
+				<th>{% trans "name"|capfirst %}<a></th>
+				<th>{% trans "color"|capfirst %}</th>
+                <th>{% trans "palette"|capfirst %}</th>
+                <th>{% trans "price"|capfirst %}</th>
+				<th>{% trans "quantity"|capfirst %}</th>
+				<th>{% trans "total"|capfirst %}</th>
+				<th>&nbsp;</th>
+			</tr>
+			{% for item in cart %}
+			<tr class="{% cycle regular,alt %}">
+				<td><a class="item" href="{{ item.item.main_category.get_absolute_url }}">{{ item.item.main_category.name }}</a></td>
+                <td class="article-small-column">{{ item.item.color }}</td>
+                <td class="article-small-column"><i style="background-color: {{ item.item.palette }}"></i></td>
+                <td class="article-small-column">{{ item.get_price }} {% trans "usd" %}</td>
+				<td class="article-small-column"><input name="{{ item.id }}" type="text" value="{{ item.quantity }}" size="8"></td>
+				<td class="article-small-column">{{ item.get_total_price }} {% trans "usd" %}</td>
+                <td class="column-center"><a href="{% url add_to_cart item.item.pk 0 %}">Удалить</a></td>
+			</tr>
+			{% endfor %}
+			<tfoot>
+				<tr>
+					<td colspan="4">{% trans "total"|capfirst %}</td>
+					<td class="article-small-column"><strong>{{ cart.quantity }}</strong></td>
+					<td class="article-small-column"><strong>{{ cart.total_price }}</strong> {% trans "usd" %}</td>
+					<td class="column-center"><input class="submit" type="submit" value="Пересчитать" name="submit"></td>
+				</tr>
+			</tfoot>			
+	</table>
+		<h3>Контактные данные</h3>
+				<div id="contact_form">			
+					<label for="name">* Фамилия, имя:</label>
+					<input type="text" name="name" id="name" class="validate[required]" size="50" />
+					
+					<label for="email">* Контактный E-mail:</label>
+					<input type="text" name="email" id="email" class="validate[required,custom[email]]" size="50" />
+					
+					<label for="phone">* Контактный телефон:</label>
+					<input type="text" name="phone" id="phone" class="validate[required]" size="50" />
+					
+					<label for="pay">* Способ оплаты: </label>
+					<table id="tb_del">
+						<tr><td><input type="radio" name="pay" value="Безналичный расчет" id="pay" class="validate[required]" /></td><td>Безналичный расчет</td></tr>
+						<tr><td><input type="radio" name="pay" value="Водителю по факту доставки" id="pay" class="validate[required]" /></td><td>Курьеру по факту доставки</td></tr>
+						</table>
+					<label for="text">Примечание:</label>
+					<textarea name="text" id="text" rows="5" cols="40"></textarea>
+					<br />
+					<input type="submit" value="Оформить заказ" class="submit" name="submit">
+				</div>
+			</form>
+</section>
+{% endblock %}

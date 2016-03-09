@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block index %}
+<article class="sliders">
+    <h3>НОВИНКИ</h3>
+        <div class="slider1">
+            {% for article in slider_new %}
+            <div class="slide">
+                <a href="{{ article.main_category.get_absolute_url }}">
+                <p>{{ article.name }}</p>{% thumbnail article.main_category.image "x170" crop='center' as im %}
+                <img src="{{ im.url }}" alt="{{ article.name }}">
+                {% endthumbnail %}{{ article.price }} грн.</a>
+            </div>
+            {% endfor %}
+        </div>
+</article>
+<article class="sliders">
+    <h3>ПОПУЛЯРНОЕ</h3>
+        <div class="slider2">
+            {% for article in popular_product %}
+            <div class="slide">
+                <a href="{{ article.main_category.get_absolute_url }}">
+                <p>{{ article.name }}</p>{% thumbnail article.main_category.image "x170" crop='center' as im %}
+                <img src="{{ im.url }}" alt="{{ article.name }}">
+                {% endthumbnail %}{{ article.price }} грн.</a>
+            </div>
+            {% endfor %}
+    </div>
+</article>
+<article class="sliders">
+    <h3>АКЦИИ И СКИДКИ</h3>
+        <div class="slider3">
+            {% for article in slider_action %}
+            <div class="slide">
+                <a href="{{ article.main_category.get_absolute_url }}">
+                <p>{{ article.name }}</p>{% thumbnail article.main_category.image "x170" crop='center' as im %}
+                <img src="{{ im.url }}" alt="{{ article.name }}">
+                {% endthumbnail %}{{ article.price }} грн.</a>
+            </div>
+            {% endfor %}
+        </div>
+</article>
+{% endblock %}

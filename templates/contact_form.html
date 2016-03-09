@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="breadcrumbs">
+    <a href="/">Вернуться на главную</a>
+</div>
+<h2>Отправить нам сообщение</h2>
+{% include "menu.html" %}
+<div id="right_menu">
+  <div class="form-wrapper">
+    <div class="linker">
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+    </div>
+    <form method="POST" class="login-form">{% csrf_token %}
+            {{ form.name }}
+            {{ form.name.errors }}
+            {{ form.email }}
+            {{ form.email.errors }}
+            {{ form.city }}
+            {{ form.city.errors }}
+            {{ form.phone }}
+            {{ form.phone.errors }}
+            {{ form.message }}
+            {{ form.message.errors }}
+            {{ form.unibot }}
+            {{ form.unibot.errors }}
+            <button type="submit">Отправить</button>
+    </form>
+    </div>
+</div>
+{% endblock %}

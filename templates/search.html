@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load thumbnail %}
+
+{% block description %}
+    {% block title %}{% block keywords %}{{ lookup_text }}{% endblock %} :: {{ block.super }}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <section>
+    <div id="breadcrumbs">
+        <a href="/">Главная</a> » Поиск
+    </div>
+    <h2 class="only_cat">Результаты поиска по названию "{{ lookup_text }}":</h2>
+    <ul id="catalog">
+	    {% for article in object_list %}
+	    <li>
+            <a href="{{ article.main_category.get_absolute_url }}">
+                <p>{{ article.name }}</p>
+                {% thumbnail article.main_category.image "180x140" crop='center' as im %}
+                <img src="{{ im.url }}" alt="{{ child.name }}">
+                {% endthumbnail %}
+                <p class="slide_price">{{ article.price }} грн.</p>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

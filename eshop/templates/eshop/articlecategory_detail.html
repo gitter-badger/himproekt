@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block description %}
+    {% block title %}{% block keywords %}{{ category.name }}{% endblock %} :: Купить в {{ block.super }}{% endblock %}
+{% endblock %}
+{% block main_image %}
+    {% if child_categories %}
+    {% thumbnail category.image "750x385" crop="center" as im %}
+    <img src="{{ im.url }}" alt="{{ category.name }}" class="main_pic">
+    {% endthumbnail %}
+    {% else %}
+    {% thumbnail category.parent.image "750x280" crop="center" as im %}
+    <img src="{{ im.url }}" alt="{{ category.parent.name }}" class="main_pic">
+    {% endthumbnail %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <section>
+    <div id="breadcrumbs">
+        <a href="/">Главная</a> {% for node in category.get_ancestors %} » <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+        {% endfor %} » {{ category.name }}
+    </div>
+    <div id="socseti">
+    <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter,viber"></div>
+    </div>
+    {% if child_articles and not child_categories %}
+    {% thumbnail category.image "x175" as im %}
+        {% thumbnail category.image "x600" as imbig %}
+    <a href="{{ imbig.url }}" data-lightbox="{{ category.id }}" data-title="{{ category.name }}."><img src="{{ im.url }}" class="item_pic" alt="{{ category.name }}"></a>
+        {% endthumbnail %}
+    {% endthumbnail %}
+    {% endif %}
+    <h2 {% if child_categories %}class="only_cat"{% endif %}>{{ category.name }}</h2>
+    {% if child_categories %}
+	<ul id="catalog">
+	    {% for child in category.children.all %}
+	    <li>
+            <a href="{{ child.get_absolute_url }}">
+                {% thumbnail child.image "x140" as im %}
+                <img src="{{ im.url }}" alt="{{ child.name }}">
+                {% endthumbnail %}
+                <p>{{ child.name }}</p>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if child_articles %}
+    <ul id="items">
+        <li class="first_row">
+            <p class="color">Цвет</p>
+            <p class="can">Фасовска материала</p>
+            <p class="pack">Упаковка, шт</p>
+            <p class="price">Стоимость, грн.</p>
+            {% comment %}
+            {% if child_articles|length > 1 %}
+            <form method="post" id="sort_by">
+                {% csrf_token %}
+                Сортировать: <select name="sort_by" onchange="submit();">
+                <option value="price" name="price" {% if request.POST.sort_by == 'price' %}selected{% endif %}> по цене
+                </option>
+                <option value="-can" name="-can" {% if request.POST.sort_by == '-can' %}selected{% endif %}>по объему
+                </option>
+            </select>
+            </form>
+            {% endif %}
+            {% endcomment %}
+        </li>
+	    {% for article in child_articles.all %}
+		    {% ifchanged article.color %}
+            <li>
+                <p class="color">{{ article.color|upper }}</p>
+                <div class="palette" style="background-color: {{ article.palette }}">
+                    {% if article.image %}
+                    {% thumbnail article.image "50x50" crop="center" as im %}
+                        {% thumbnail article.image "x600" as imbig %}
+                        <a href="{{ imbig.url }}" data-lightbox="{{ article.id }}" data-title="{{ category.name }}. {{ article.color }}"><img src="{{ im.url }}" class="item_pic" alt="{{ category.name }}. {{ article.color }}"></a>
+                        {% endthumbnail %}
+                    {% endthumbnail %}
+                    {% endif %}
+                    </div>
+            {% else %}
+                <li class="same_color">
+                <p class="color"></p>
+                <div class="palette" style="border: none"></div>
+            {% endifchanged %}
+                <p class="can">{{ article.can }}</p>
+                <p class="pack">{{ article.pack }}</p>
+                {% if article.present %}
+                    <p class="price">{{ article.price }}</p>
+                <form>
+                    <span class="minus">-</span>
+                    <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1">
+                    <span class="plus">+</span>
+                    <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Купить</a>
+                </form>
+                {% else %}
+                    <p>Нет на складе</p>
+                {% endif %}
+			</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if child_articles %}
+    <div class="tabs">
+        <ul class="tabs__caption">
+            <li class="active">Описание</li>
+            <li>Характеристики</li>
+        </ul>
+        <div class="tabs__content active">
+            {{ category.description|safe }}
+        </div>
+        <div class="tabs__content">
+        <table id="character">
+            <tbody>
+            {% if category.manufacturer %}<tr><td>Производитель</td><td>{{ category.manufacturer }}</td></tr>{% endif %}
+            {% if category.country %}<tr><td>Страна</td><td>{{ category.country }}</td></tr>{% endif %}
+            {% if category.using_type %}<tr><td>Тип использования</td><td>{{ category.using_type }}</td></tr>{% endif %}
+            {% if category.using_material %}<tr><td>Тип окрашиваемого материала</td><td>{{ category.using_material }}</td></tr>{% endif %}
+            {% if category.base_paint %}<tr><td>Основа краски</td><td>{{ category.base_paint }}</td></tr>{% endif %}
+            {% if category.consumption %}<tr><td>Расход (кв.м)</td><td>{{ category.consumption }}</td></tr>{% endif %}
+            {% if category.drying_time %}<tr><td>Время высыхания</td><td>{{ category.drying_time|floatformat }} ч.</td></tr>{% endif %}
+            {% if category.gloss %}<tr><td>Степень блеска</td><td>{{ category.gloss }}</td></tr>{% endif %}
+            {% if category.work_temp_min %}<tr><td>Мин. рабочая температора (°C)</td><td>{{ category.work_temp_min }}</td></tr>{% endif %}
+            {% if category.work_temp_max %}<tr><td>Макс. рабочая температора (°C)</td><td>{{ category.work_temp_max }}</td></tr>{% endif %}
+            {% if category.storage_temp_min %}<tr><td>Мин. температора хранения (°C)</td><td>{{ category.storage_temp_min }}</td></tr>{% endif %}
+            {% if category.storage_temp_max %}<tr><td>Макс. температора хранения (°C)</td><td>{{ category.storage_temp_max }}</td></tr>{% endif %}
+            {% if category.application_method %}<tr><td>Способ нанесения</td><td>{{ category.application_method }}</td></tr>{% endif %}
+            {% if category.shelf_life %}<tr><td>Срок храниения (мес)</td><td>{{ category.shelf_life }}</td></tr>{% endif %}
+            {% if category.base_enamel %}<tr><td>Основа эмали</td><td>{{ category.base_enamel }}</td></tr>{% endif %}
+            {% if category.material_proces_type %}<tr><td>Вид обрабатываемого материала</td><td>{{ category.material_proces_type }}</td></tr>{% endif %}
+            {% if category.primer_type %}<tr><td>Вид грунтовки</td><td>{{ category.primer_type }}</td></tr>{% endif %}
+            {% if category.varnish_type %}<tr><td>Вид лака</td><td>{{ category.varnish_type }}</td></tr>{% endif %}
+            {% if category.glue_type %}<tr><td>Тип клея</td><td>{{ category.glue_type }}</td></tr>{% endif %}
+            {% if category.glue_view %}<tr><td>Вид клея</td><td>{{ category.glue_view }}</td></tr>{% endif %}
+            {% if category.bonded_materials %}<tr><td>Вид склеиваемых материалов</td><td>{{ category.bonded_materials }}</td></tr>{% endif %}
+            {% if category.consistency %}<tr><td>Консистенция</td><td>{{ category.consistency }}</td></tr>{% endif %}
+            {% if category.batcher %}<tr><td>Дозатор</td><td>{{ category.batcher }}</td></tr>{% endif %}
+            {% if category.bonding_time %}<tr><td>Время склеивания (сек)</td><td>{{ category.bonding_time }}</td></tr>{% endif %}
+            {% if category.she2lf_life %}<tr><td>Срок годности (мес)</td><td>{{ category.shelf_life }}</td></tr>{% endif %}
+            {% if category.filler_type %}<tr><td>Тип шпатлевки</td><td>{{ category.filler_type }}</td></tr>{% endif %}
+            {% if category.use_filler %}<tr><td>Назначение шпатлевки</td><td>{{ category.use_filler }}</td></tr>{% endif %}
+            {% if category.treated_surface %}<tr><td>Тип обрабатываемой поверхности</td><td>{{ category.treated_surface }}</td></tr>{% endif %}
+            {% if category.soat_type %}<tr><td>Вид пропитки</td><td>{{ category.soat_type }}</td></tr>{% endif %}
+            {% if category.composition_type %}<tr><td>Тип по составу</td><td>{{ category.composition_type }}</td></tr>{% endif %}
+            {% if category.decor_view %}<tr><td>Вид декоративной штукатурки</td><td>{{ category.decor_view }}</td></tr>{% endif %}
+            {% if category.texture %}<tr><td>Фактура</td><td>{{ category.texture }}</td></tr>{% endif %}
+            {% if category.material_appointment %}<tr><td>Назначение материала</td><td>{{ category.material_appointment }}</td></tr>{% endif %}
+            {% if category.material_condition %}<tr><td>Состояние материала</td><td>{{ category.material_condition }}</td></tr>{% endif %}
+            {% if category.appearance %}<tr><td>Внешний вид</td><td>{{ category.appearance }}</td></tr>{% endif %}
+            {% if category.substances_content %}<tr><td>Содержание нелетучих веществ, %</td><td>{{ category.substances_content }}</td></tr>{% endif %}
+            {% if category.dynamic_viscosity %}<tr><td>Динамическая вязкость, мПа*с</td><td>{{ category.dynamic_viscosity }}</td></tr>{% endif %}
+            {% if category.density %}<tr><td>Плотность</td><td>{{ category.density }}</td></tr>{% endif %}
+            {% if category.product_type %}<tr><td>Вид изделия</td><td>{{ category.product_type }}</td></tr>{% endif %}
+            {% if category.protection %}<tr><td>Защита от</td><td>{{ category.protection }}</td></tr>{% endif %}
+            {% if category.gloves_type %}<tr><td>Типы перчаток</td><td>{{ category.gloves_type }}</td></tr>{% endif %}
+            {% if category.gloves_size %}<tr><td>Размер перчаток</td><td>{{ category.gloves_size }}</td></tr>{% endif %}
+            {% if category.gloves_material %}<tr><td>Материал перчаток</td><td>{{ category.gloves_material }}</td></tr>{% endif %}
+            {% if category.solvent_type %}<tr><td>Вид растворителя</td><td>{{ category.solvent_type }}</td></tr>{% endif %}
+            {% if category.material_type %}<tr><td>Вид материала</td><td>{{ category.material_type }}</td></tr>{% endif %}
+            {% if category.electrode_diameter %}<tr><td>Диаметр электрода (мм)</td><td>{{ category.electrode_diameter }}</td></tr>{% endif %}
+            {% if category.electrode_length %}<tr><td>Длина электрода (мм)</td><td>{{ category.electrode_length }}</td></tr>{% endif %}
+            {% if category.electrode_type %}<tr><td>Тип электрода</td><td>{{ category.electrode_type }}</td></tr>{% endif %}
+            {% if category.electrode_cover %}<tr><td>Тип покрытого электрода по покрытию</td><td>{{ category.electrode_cover }}</td></tr>{% endif %}
+            {% if category.electrode_use %}<tr><td>Тип покрытого электрода по применению</td><td>{{ category.electrode_use }}</td></tr>{% endif %}
+            {% if category.electrode_positions %}<tr><td>Тип покрытого электрода по положениям сварки в пространстве</td><td>{{ category.electrode_positions }}</td></tr>{% endif %}
+            {% if category.current_max %}<tr><td>Максимальный сварочный ток (А)</td><td>{{ category.current_max }}</td></tr>{% endif %}
+            {% if category.current_min %}<tr><td>Минимальный сварочный ток (А)</td><td>{{ category.current_min }}</td></tr>{% endif %}
+            {% if category.package_weight %}<tr><td>Вес упаковки (кг)</td><td>{{ category.package_weight }}</td></tr>{% endif %}
+            {% if category.warranty %}<tr><td>Гарантийный срок (мес)</td><td>{{ category.warranty }}</td></tr>{% endif %}
+            {% if category.current_race %}<tr><td>Род тока</td><td>{{ category.current_race }}</td></tr>{% endif %}
+            {% if category.welding_rate %}<tr><td>Коэффициент наплавки, г/Ач</td><td>{{ category.welding_rate }}</td></tr>{% endif %}
+            {% if category.electrode_consumption %}<tr><td>Расход электродов на 1кг наплавленного металла, кг</td><td>{{ category.electrode_consumption }}</td></tr>{% endif %}
+            {% if category.tensile_strength %}<tr><td>Временное сопротивление разрыву, МПа</td><td>{{ category.tensile_strength }}</td></tr>{% endif %}
+            {% if category.relative_extension %}<tr><td>Относительное удлинение, %</td><td>{{ category.relative_extension }}</td></tr>{% endif %}
+            {% if category.impact_strength %}<tr><td>Ударная вязкость, Дж/см2</td><td>{{ category.impact_strength }}</td></tr>{% endif %}
+            {% if category.when_temp_20 %}<tr><td>При t - 20 °С</td><td>{{ category.when_temp_20 }}</td></tr>{% endif %}
+            {% if category.chemical_composition %}<tr><td>Химический состав наплавленного металла, %</td><td>{{ category.chemical_composition }}</td></tr>{% endif %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+    </section>
+{% endblock %}

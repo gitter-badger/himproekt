@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load comments i18n cache %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block description %}
+    {% block title %}{% block keywords %}{{ item.name }}. Отзывы и комментарии.{% endblock %} :: Купить в {{ block.super }}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div id="breadcrumbs">
+        <a href="/">Главная</a> » <a href="/production/">Продукция</a>
+        {% for node in item.main_category.get_ancestors %}
+	    » <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+        {% endfor %}
+	» <a href="{{ item.main_category.get_absolute_url }}">{{ item.main_category.name }}</a>
+	</div>
+    <h2>{{ item.name }}</h2>
+    {% include "menu.html" %}
+<div id="right_column">
+	<div id="item">
+			<div id="image">
+            {% if item.action_product %}<img class="action" src="{{ MEDIA_URL }}img/aktion_b.png">{% endif %}
+            {% thumbnail item.image "300" as im %}
+                <a href="{{ item.image.url }}" rel="lightbox[{{ item.name }}]" title="{{ item.name }}"><img src="{{ im.url }}" alt="{{ item.name }}"></a>
+            {% endthumbnail %}
+			{% for img in item.articleimage_set.all %}
+            {% thumbnail img.image "300" as im %}
+			    <a href="{{ img.image.url }}" rel="lightbox[{{ item.name }}]" title="{{ item.name }}"><img src="{{ im.url }}" alt="{{ item.name }}"></a>
+			{% endthumbnail %}
+            {% endfor %}
+			<div class="pluso" data-background="#ebebeb" data-options="medium,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki"></div>
+            </div>
+            <span class="price">Цена: {{ item.price|floatformat }} грн.</span>
+            <form>
+				<input type="text" name="{{ item.pk }}" id="{{ item.pk }}_input" size=4 value="1">
+				<a id="{{ item.pk }}" href="#" onclick="addToCart('{{ item.pk }}');return false;">В корзину</a>
+            </form>
+            <p>На складе:{% if item.present %} есть {% else %} нет {% endif %}</p>
+            <p>Артикул: {{ item.kod_tovara }}</p>
+	{{ item.description|safe }}
+		<br>
+	</div>
+	{% with item.main_category.get_children_articles as articles %}
+		{% if articles|length > 1 %}
+		<div id="other_items_list"><h4>Похожие товары</h4>
+			<ul>
+			{% for article in articles %}
+				{% if article.id != item.id %}
+                {% thumbnail article.image "95x80" crop='center' as im %}
+				    <li><a href="{{ article.get_absolute_url }}"><span>{{ article.name }}</span><img src="{{ im.url }}" alt="{{ article.name }}"></a><p>{{ article.price }} грн.</p></li>
+                {% endthumbnail %}
+				{% endif %}
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	{% endwith %}
+</div>
+<script type="text/javascript">
+    function addToCart(id){
+        var item = $('#' + id + '_input');
+        count = "" + item.val();
+        url = "{% url add_to_cart item.pk 1 %}";
+        url = url.substring(0, url.length-2) + count + "/";
+        $.ajax({
+                url: url,
+                type: 'GET',
+                datatype: 'json',
+                error: function(xhr, status, errorThrown) {
+                alert(errorThrown+'\n'+status+'\n'+xhr.statusText+'\n'+url);
+            },
+            success: function(data) {
+                $('#item-add-box').removeClass('item_add_hidden');
+                $('#item-add-box').addClass('item_add_visible');
+                setTimeout(function(){
+                    $('#item-add-box').addClass('item_add_hidden');
+                    $('#item-add-box').removeClass('item_add_visible');
+                    }, 2500);
+                $('#cart-quantity').html(data['total_count']);
+                $('#cart-price').html(data['total_price']);
+            }
+        });
+    }
+</script>
+{% endblock %}

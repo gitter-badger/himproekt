@@ -1,0 +1,9 @@
+/venv
+.env
+local_settings.py
+*.pyc
+*.un~
+*.sqlite
+.idea
+.geany
+/media/upload
