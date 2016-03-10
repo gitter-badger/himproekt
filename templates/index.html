@@ -8,9 +8,15 @@
             {% for article in slider_new %}
             <div class="slide">
                 <a href="{{ article.main_category.get_absolute_url }}">
-                <p>{{ article.name }}</p>{% thumbnail article.main_category.image "x170" crop='center' as im %}
+                <p>{{ article.name }}</p>
+                {% if article.image %}
+                    {% thumbnail article.image "x160" crop="center" as im %}
+                        <img src="{{ im.url }}" alt="{{ article.name }}">
+                    {% endthumbnail %}
+                {% else %}
+                    {% thumbnail article.main_category.image "x160" crop='center' as im %}
                 <img src="{{ im.url }}" alt="{{ article.name }}">
-                {% endthumbnail %}{{ article.price }} грн.</a>
+                {% endthumbnail %}{% endif %}{{ article.price }} грн.</a>
             </div>
             {% endfor %}
         </div>
@@ -21,9 +27,15 @@
             {% for article in popular_product %}
             <div class="slide">
                 <a href="{{ article.main_category.get_absolute_url }}">
-                <p>{{ article.name }}</p>{% thumbnail article.main_category.image "x170" crop='center' as im %}
+                <p>{{ article.name }}</p>
+                {% if article.image %}
+                    {% thumbnail article.image "x160" crop="center" as im %}
+                        <img src="{{ im.url }}" alt="{{ article.name }}">
+                    {% endthumbnail %}
+                {% else %}
+                    {% thumbnail article.main_category.image "x160" crop='center' as im %}
                 <img src="{{ im.url }}" alt="{{ article.name }}">
-                {% endthumbnail %}{{ article.price }} грн.</a>
+                {% endthumbnail %}{% endif %}{{ article.price }} грн.</a>
             </div>
             {% endfor %}
     </div>
@@ -34,9 +46,15 @@
             {% for article in slider_action %}
             <div class="slide">
                 <a href="{{ article.main_category.get_absolute_url }}">
-                <p>{{ article.name }}</p>{% thumbnail article.main_category.image "x170" crop='center' as im %}
+                <p>{{ article.name }}</p>
+                {% if article.image %}
+                    {% thumbnail article.image "x160" crop="center" as im %}
+                        <img src="{{ im.url }}" alt="{{ article.name }}">
+                    {% endthumbnail %}
+                {% else %}
+                    {% thumbnail article.main_category.image "x160" crop='center' as im %}
                 <img src="{{ im.url }}" alt="{{ article.name }}">
-                {% endthumbnail %}{{ article.price }} грн.</a>
+                {% endthumbnail %}{% endif %}{{ article.price }} грн.</a>
             </div>
             {% endfor %}
         </div>

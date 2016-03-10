@@ -339,8 +339,8 @@ footer{
 footer p{margin: 2px}
 
 div.slide{text-align: center}
-div.slide p {font-size: 0.8em;color:#1e003a}
-div.slide img{margin: 0 auto;height: 170px;max-width:200px}
+div.slide p {font-size: 0.8em;color:#1e003a;height: 45px}
+div.slide img{margin: 0 auto;height: 160px;max-width:200px}
 div.slide a, section ul#catalog li a p.slide_price{font-size: 1em;color:#EF7D18;font-weight: bold;margin-top:5px;display: block;}
 div.slide a{border:solid 1px #ffffff}
 div.slide a:hover{border:solid 1px #EF7D18;text-decoration:none }
