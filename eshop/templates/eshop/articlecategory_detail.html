@@ -49,7 +49,7 @@
     <ul id="items">
         <li class="first_row">
             <p class="color">Цвет</p>
-            <p class="can">Фасовска материала</p>
+            <p class="can">Фасовка материала</p>
             <p class="pack">Упаковка, шт</p>
             <p class="price">Стоимость, грн.</p>
             {% comment %}
@@ -121,10 +121,10 @@
             {% if category.consumption %}<tr><td>Расход (кв.м)</td><td>{{ category.consumption }}</td></tr>{% endif %}
             {% if category.drying_time %}<tr><td>Время высыхания</td><td>{{ category.drying_time|floatformat }} ч.</td></tr>{% endif %}
             {% if category.gloss %}<tr><td>Степень блеска</td><td>{{ category.gloss }}</td></tr>{% endif %}
-            {% if category.work_temp_min %}<tr><td>Мин. рабочая температора (°C)</td><td>{{ category.work_temp_min }}</td></tr>{% endif %}
-            {% if category.work_temp_max %}<tr><td>Макс. рабочая температора (°C)</td><td>{{ category.work_temp_max }}</td></tr>{% endif %}
-            {% if category.storage_temp_min %}<tr><td>Мин. температора хранения (°C)</td><td>{{ category.storage_temp_min }}</td></tr>{% endif %}
-            {% if category.storage_temp_max %}<tr><td>Макс. температора хранения (°C)</td><td>{{ category.storage_temp_max }}</td></tr>{% endif %}
+            {% if category.work_temp_min %}<tr><td>Мин. рабочая температора (°C)</td><td>{{ category.work_temp_min }} (°C)</td></tr>{% endif %}
+            {% if category.work_temp_max %}<tr><td>Макс. рабочая температора (°C)</td><td>{{ category.work_temp_max }} (°C)</td></tr>{% endif %}
+            {% if category.storage_temp_min %}<tr><td>Мин. температора хранения (°C)</td><td>{{ category.storage_temp_min }} (°C)</td></tr>{% endif %}
+            {% if category.storage_temp_max %}<tr><td>Макс. температора хранения (°C)</td><td>{{ category.storage_temp_max }} (°C)</td></tr>{% endif %}
             {% if category.application_method %}<tr><td>Способ нанесения</td><td>{{ category.application_method }}</td></tr>{% endif %}
             {% if category.shelf_life %}<tr><td>Срок храниения (мес)</td><td>{{ category.shelf_life }}</td></tr>{% endif %}
             {% if category.base_enamel %}<tr><td>Основа эмали</td><td>{{ category.base_enamel }}</td></tr>{% endif %}
