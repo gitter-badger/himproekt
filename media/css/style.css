@@ -362,7 +362,7 @@ section h2.only_cat{line-height:45px;padding: 10px;}
 section p{text-align:justify;text-indent: 20px;font-size: 0.8em;margin: 10px;font-weight: normal;}
 section div#socseti{position: absolute;right: 5px;top:5px}
 section ul#catalog,section ul#items {font-family: 'PT Sans',sans-serif;color: #1F0039;list-style-type: none;text-align:center;margin: 0;padding: 0}
-section ul#catalog li{display: inline-block;margin: 10px;}
+section ul#catalog li{display: inline-flex;margin: 10px;}
 section ul#catalog li a{display: block;border:solid 1px white;color: #21023B;padding:10px}
 section ul#catalog li a img{border-radius: 10px;}
 section ul#catalog li a:hover{text-decoration: none;border:solid 1px #21023B;}

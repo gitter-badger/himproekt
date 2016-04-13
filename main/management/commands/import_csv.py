@@ -13,20 +13,10 @@ from time import strftime
 fields_name = (
     'is_category',  # признак категории
     'id',  # айдишник
-    'parent_id',  # родительский айдишник
-    'article',  # артикул
     'name',  # наименование
-    'properties',  # характеристика
-    'length',  # длинна
-    'width',  # ширина
-    'height',  # высота
-    'coefficient',  # коэффициент
-    'brand',  # бренд
-    'description',  # дополнительное описание
-    'price',  # цена 1
-    'new_price',  # цена акционная
+    'slug',  # слаг
+    'parent_id',  # родительский айдишник
     'image',  # картинка
-    'country',  # страна
 )
 
 
@@ -72,23 +62,12 @@ def do_import_file(reader, stderr):
             continue
         print(row)
         #try:
-        if bool(int(row['is_category'])):
-            category, _ = ArticleCategory.objects.get_or_create(id=row['id'])
-            category.name = 'Новинки от' + strftime(" %d.%m.%Y") if row['name']=='Novinki' else row['name']
-            category.parent = ArticleCategory.objects.get(id=row['parent_id']) if row['parent_id'] else None
-            category.save()
-        else:
-            article, _ = ArticleItem.objects.get_or_create(id=row['id'])
-            article.categories.add(ArticleCategory.objects.get(id=row['parent_id']))
-            article.name = row['name']
-            article.kod_tovara = row['article']
-            article.price = row['price'].replace(',', '.') if row['price'] else 0
-            article.new_price = row['new_price'].replace(',', '.') if row['new_price'] else 0
-            article.description = '<p>' + row['description'].replace('\n', '</p><p>') + '</p>'
-            article.image = 'upload/Photo/' + row['image'] if row['image'] else 'img/no_photo.jpg'
-            article.published = bool(row['price'])
-            article.action_product = bool(row['new_price'])
-            article.save()
+        category, _ = ArticleCategory.objects.get_or_create(id=row['id'])
+        category.name = row['name']
+        category.slug = row['slug']
+        category.parent = ArticleCategory.objects.get(id=row['parent_id']) if row['parent_id'] else None
+        category.image = row['image']
+        category.save()
 
         #except Exception as e:
         #    stderr.write(u'Error in line number {0}. Data: {1}\nError: {2}'.format(number, row, e))

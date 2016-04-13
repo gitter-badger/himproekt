@@ -18,8 +18,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_SUBJECT_PREFIX = '[Himproekt]'
-EMAIL_HOST_USER = 'salfetkaodua@gmail.com'
-EMAIL_HOST_PASSWORD = 'Platinumpony2180'
 DEFAULT_FROM_EMAIL = 'himproekt2015@gmail.com'
 
 DATABASES = {
@@ -144,6 +142,8 @@ CACHE_BACKEND = 'dummy://' if DEBUG else 'file://%s/cache?timeout=3000' % PROJEC
 MPTT_ADMIN_LEVEL_INDENT = 30
 
 FILE_UPLOAD_PERMISSIONS = 0644
+
+PRICE_FILE = os.path.join(PROJECT_ROOT, 'Tovar.csv')
 
 try:
     from local_settings import *

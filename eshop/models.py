@@ -54,7 +54,7 @@ class ArticleCategory(MPTTModel):
     using_type = models.CharField(u'Тип использования', max_length=200, blank=True)
     using_material = models.CharField(u'Тип окрашиваемого материала', max_length=200, blank=True)
     base_paint = models.CharField(u'Основа краски', max_length=100, blank=True)
-    consumption = models.CharField(u'Расход (кв.м)', max_length=16, blank=True)
+    consumption = models.CharField(u'Расход (кв.м)', max_length=64, blank=True)
     drying_time = models.DecimalField(u'Время высыхания (час)', max_digits=4, decimal_places=2, blank=True, default=0)
     gloss = models.CharField(u'Степень блеска', max_length=32, blank=True)
     work_temp_min = models.DecimalField(u'Мин. рабочая температора', max_digits=2, decimal_places=0, blank=True, default=0)
