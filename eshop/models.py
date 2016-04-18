@@ -102,7 +102,7 @@ class ArticleCategory(MPTTModel):
     electrode_positions = models.CharField(u'Тип покрытого электрода по положениям сварки в пространстве', max_length=64, blank=True)
     current_max = models.DecimalField(u'Максимальный сварочный ток (А)', max_digits=3, decimal_places=0, blank=True, default=0)
     current_min = models.DecimalField(u'Минимальный сварочный ток (А)', max_digits=3, decimal_places=0, blank=True, default=0)
-    package_weight = models.DecimalField(u'Вес упаковки (кг)', max_digits=3, decimal_places=0, blank=True, default=0)
+    package_weight = models.DecimalField(u'Вес упаковки (кг)', max_digits=3, decimal_places=1, blank=True, default=0)
     warranty = models.DecimalField(u'Гарантийный срок (мес)', max_digits=3, decimal_places=0, blank=True, default=0)
     current_race = models.CharField(u'Род тока', max_length=32, blank=True)
     welding_rate = models.CharField(u'Коэффициент наплавки, г/Ач', max_length=32, blank=True)
