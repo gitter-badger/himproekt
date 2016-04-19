@@ -36,10 +36,11 @@
 	    {% for child in category.children.all %}
 	    <li>
             <a href="{{ child.get_absolute_url }}">
+                <p>{{ child.name }}</p>
                 {% thumbnail child.image "x140" as im %}
                 <img src="{{ im.url }}" alt="{{ child.name }}">
                 {% endthumbnail %}
-                <p>{{ child.name }}</p>
+                <p class="slide_price">{% for article in child.articles.all|dictsort:"price"|slice:":1" %} {{ article.price }} грн.{% endfor %}</p>
             </a>
         </li>
         {% endfor %}
