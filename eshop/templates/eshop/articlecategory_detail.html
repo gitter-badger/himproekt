@@ -36,7 +36,7 @@
 	    {% for child in category.children.all %}
 	    <li>
             <a href="{{ child.get_absolute_url }}">
-                {% thumbnail child.image "210x140" crop="center" as im %}
+                {% thumbnail child.image "x140" as im %}
                 <img src="{{ im.url }}" alt="{{ child.name }}">
                 {% endthumbnail %}
                 <p>{{ child.name }}</p>
