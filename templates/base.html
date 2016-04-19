@@ -50,7 +50,7 @@
             <li>{% if category.children %}<a href="{{ category.get_absolute_url }}" class="parent">{{ category.name }}</a>{% else %}
                 <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
                 {% endif %}
-                {% if category.children %}
+                {% if category.id == 1 or category.id == 5 or category.id == 11  %}
                 <ul>{% for child in category.children.all %}
                     <li><a href="{{ child.get_absolute_url }}">{{ child.name }}</a></li>{% endfor %}
                 </ul>
