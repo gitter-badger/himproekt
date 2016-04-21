@@ -22,9 +22,10 @@ class ArticleCategoryAdmin(MPTTModelAdmin):
     search_fields = ('id', 'name',)
     list_display = ('get_thumbnail_html', 'name', 'published', 'order')
     list_filter  = ('published',)
-    ordering     = ('name', 'order', 'published')
+    ordering     = ('name', 'published')
     list_display_links = ('name',)
     #inlines      = (ArticleItemInlineAdmin, )
+    list_editable = ('published',)
     prepopulated_fields = {"slug": ("name",)}
     save_on_top  = True
 
