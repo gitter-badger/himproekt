@@ -19,6 +19,7 @@ class ArticleItemInlineAdmin(admin.TabularInline):
 class ArticleCategoryAdmin(MPTTModelAdmin):
     """Customize article's category admin page."""
 
+    search_fields = ('id', 'name',)
     list_display = ('get_thumbnail_html', 'name', 'published', 'order')
     list_filter  = ('published',)
     ordering     = ('name', 'order', 'published')
