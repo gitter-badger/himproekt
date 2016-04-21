@@ -40,7 +40,7 @@
                 {% thumbnail child.image "x140" as im %}
                 <img src="{{ im.url }}" alt="{{ child.name }}">
                 {% endthumbnail %}
-                <p class="slide_price">{% for article in child.articles.all|dictsort:"price"|slice:":1" %} {{ article.price }} грн.{% endfor %}</p>
+                <p class="slide_price">{% for article in child.articles.all|dictsort:"price"|slice:":1" %} {{ article.get_price }} грн.{% endfor %}</p>
             </a>
         </li>
         {% endfor %}
@@ -49,37 +49,29 @@
     {% if child_articles %}
     <ul id="items">
         <li class="first_row">
-            <p class="color">Цвет</p>
+            <p class="color">{% if article.color %}Цвет{% endif %}</p>
             <p class="can">Фасовка материала</p>
             <p class="pack">Упаковка, шт</p>
             <p class="price">Стоимость, грн.</p>
-            {% comment %}
-            {% if child_articles|length > 1 %}
-            <form method="post" id="sort_by">
-                {% csrf_token %}
-                Сортировать: <select name="sort_by" onchange="submit();">
-                <option value="price" name="price" {% if request.POST.sort_by == 'price' %}selected{% endif %}> по цене
-                </option>
-                <option value="-can" name="-can" {% if request.POST.sort_by == '-can' %}selected{% endif %}>по объему
-                </option>
-            </select>
-            </form>
-            {% endif %}
-            {% endcomment %}
         </li>
 	    {% for article in child_articles.all %}
 		    {% ifchanged article.color %}
             <li>
+                {% if article.color %}
                 <p class="color">{{ article.color|upper }}</p>
                 <div class="palette" style="background-color: {{ article.palette }}">
                     {% if article.image %}
                     {% thumbnail article.image "50x50" crop="center" as im %}
                         {% thumbnail article.image "x600" as imbig %}
-                        <a href="{{ imbig.url }}" data-lightbox="{{ article.id }}" data-title="{{ category.name }}. {{ article.color }}"><img src="{{ im.url }}" class="item_pic" alt="{{ category.name }}. {{ article.color }}"></a>
+                        <a href="{{ imbig.url }}" data-lightbox="{{ article.id }}" data-title="{{ category.name }}. {{ article.color }}"><img src="{{ im.url }}" alt="{{ category.name }}. {{ article.color }}"></a>
                         {% endthumbnail %}
                     {% endthumbnail %}
                     {% endif %}
                     </div>
+                {% else %}
+                <p class="color"></p>
+                <div class="palette" style="border: none"></div>
+                {% endif %}
             {% else %}
                 <li class="same_color">
                 <p class="color"></p>
@@ -88,7 +80,7 @@
                 <p class="can">{{ article.can }}</p>
                 <p class="pack">{{ article.pack }}</p>
                 {% if article.present %}
-                    <p class="price">{{ article.price }}</p>
+                    <p class="price">{{ article.get_price }}</p>
                 <form>
                     <span class="minus">-</span>
                     <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1">

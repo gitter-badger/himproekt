@@ -49,7 +49,7 @@ def search_view(request):
     if lookup_text is None:
         query = ArticleItem.objects.none()
     else:
-        query = ArticleItem.objects.filter(Q(name__icontains=lookup_text) | Q(kod_tovara__icontains=lookup_text))
+        query = ArticleItem.objects.filter(Q(name__icontains=lookup_text) | Q(kod_tovara__icontains=lookup_text) & Q(categories__name=lookup_text))
     return object_list(request, queryset = query, template_name = "search.html", extra_context={'lookup_text':lookup_text})
 
 
@@ -61,7 +61,7 @@ def contact(request):
         city = form.cleaned_data['city']
         phone = form.cleaned_data['phone']
         message = form.cleaned_data['message']
-        mail_managers('Letter from Hozclub.com.ua', u'\n{name} \n{email} \n{city} \n{phone} \n{message}'.format(name=name, email=email, city=city, phone=phone, message=message))
+        mail_managers('Letter from Himproekt.com', u'\n{name} \n{email} \n{city} \n{phone} \n{message}'.format(name=name, email=email, city=city, phone=phone, message=message))
         return HttpResponseRedirect(redirect_to='/')
     return render(request,'contact_form.html', {'form': form})
 

@@ -17,11 +17,6 @@ fields_name = (
     'slug',  # слаг
     'parent_id',  # родительский айдишник
     'image',  # картинка
-    'item_price',  # цена
-    'item_can',  # фасовка
-    'color',  # цвет
-    'palette',  # палитра
-
 )
 
 
@@ -67,16 +62,12 @@ def do_import_file(reader, stderr):
             continue
         print(row)
         #try:
-        article, _ = ArticleItem.objects.get_or_create(id=row['id'])
-        article.categories.add(ArticleCategory.objects.get(id=row['parent_id']))
-        article.name = row['name']
-        article.slug = row['slug']
-        article.price = row['item_price'].replace(',', '.') if row['item_price'] else 0
-        article.image = row['image']
-        article.color = row['color']
-        article.palette = row['palette']
-        article.can = row['item_can']
-        article.save()
+        category, _ = ArticleCategory.objects.get_or_create(id=row['id'])
+        category.name = row['name']
+        category.slug = row['slug']
+        category.parent = ArticleCategory.objects.get(id=row['parent_id']) if row['parent_id'] else None
+        category.image = row['image']
+        category.save()
 
         #except Exception as e:
         #    stderr.write(u'Error in line number {0}. Data: {1}\nError: {2}'.format(number, row, e))
