@@ -40,7 +40,7 @@
                 {% thumbnail child.image "x140" as im %}
                 <img src="{{ im.url }}" alt="{{ child.name }}">
                 {% endthumbnail %}
-                <p class="slide_price">{% for article in child.articles.all|dictsort:"price"|slice:":1" %} {{ article.get_price }} грн.{% endfor %}</p>
+                <p class="slide_price">Подробнее...</p>
             </a>
         </li>
         {% endfor %}
@@ -61,7 +61,7 @@
                 <p class="color">{{ article.color|upper }}</p>
                 <div class="palette" style="background-color: {{ article.palette }}">
                     {% if article.image %}
-                    {% thumbnail article.image "50x50" crop="center" as im %}
+                    {% thumbnail article.image "x50" as im %}
                         {% thumbnail article.image "x600" as imbig %}
                         <a href="{{ imbig.url }}" data-lightbox="{{ article.id }}" data-title="{{ category.name }}. {{ article.color }}"><img src="{{ im.url }}" alt="{{ category.name }}. {{ article.color }}"></a>
                         {% endthumbnail %}
