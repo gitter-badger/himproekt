@@ -21,7 +21,7 @@ fields_name = (
     'item_can',  # фасовка
     'color',  # цвет
     'palette',  # палитра
-
+    'code',  # код
 )
 
 
@@ -73,9 +73,11 @@ def do_import_file(reader, stderr):
         article.slug = row['slug']
         article.price = row['item_price'].replace(',', '.') if row['item_price'] else 0
         article.image = row['image']
+        article.kod_tovara = row['code']
         article.color = row['color']
         article.palette = row['palette']
         article.can = row['item_can']
+        article.published = bool(row['item_price'])
         article.save()
 
         #except Exception as e:

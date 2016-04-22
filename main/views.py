@@ -49,7 +49,7 @@ def search_view(request):
     if lookup_text is None:
         query = ArticleItem.objects.none()
     else:
-        query = ArticleItem.objects.filter(Q(name__icontains=lookup_text) | Q(kod_tovara__icontains=lookup_text) & Q(categories__name=lookup_text))
+        query = ArticleItem.objects.filter(Q(name__icontains=lookup_text) | Q(kod_tovara__icontains=lookup_text) | Q(categories__name=lookup_text))
     return object_list(request, queryset = query, template_name = "search.html", extra_context={'lookup_text':lookup_text})
 
 

@@ -16,7 +16,7 @@
                 {% else %}
                     {% thumbnail article.main_category.image "x160" crop='center' as im %}
                 <img src="{{ im.url }}" alt="{{ article.name }}">
-                {% endthumbnail %}{% endif %}{{ article.price }} грн.</a>
+                {% endthumbnail %}{% endif %}{{ article.get_price }} грн.</a>
             </div>
             {% endfor %}
         </div>
@@ -35,7 +35,7 @@
                 {% else %}
                     {% thumbnail article.main_category.image "x160" crop='center' as im %}
                 <img src="{{ im.url }}" alt="{{ article.name }}">
-                {% endthumbnail %}{% endif %}{{ article.price }} грн.</a>
+                {% endthumbnail %}{% endif %}{{ article.get_price }} грн.</a>
             </div>
             {% endfor %}
     </div>
@@ -54,7 +54,7 @@
                 {% else %}
                     {% thumbnail article.main_category.image "x160" crop='center' as im %}
                 <img src="{{ im.url }}" alt="{{ article.name }}">
-                {% endthumbnail %}{% endif %}{{ article.price }} грн.</a>
+                {% endthumbnail %}{% endif %}{{ article.get_price }} грн.</a>
             </div>
             {% endfor %}
         </div>

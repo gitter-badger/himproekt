@@ -17,6 +17,9 @@ fields_name = (
     'slug',  # слаг
     'parent_id',  # родительский айдишник
     'image',  # картинка
+    'description', # описание
+    'manufacturer', # производитель
+    'country', # страна
 )
 
 
@@ -67,6 +70,9 @@ def do_import_file(reader, stderr):
         category.slug = row['slug']
         category.parent = ArticleCategory.objects.get(id=row['parent_id']) if row['parent_id'] else None
         category.image = row['image']
+        category.description = row['description']
+        category.manufacturer = row['manufacturer']
+        category.country = row['country']
         category.save()
 
         #except Exception as e:
