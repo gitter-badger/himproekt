@@ -163,6 +163,12 @@ class ArticleItem(models.Model):
     image = models.ImageField(_('image'), upload_to="upload", blank=True)
     published = models.BooleanField(_('published'), default=True)
     price = models.DecimalField(_('price'), max_digits=10, decimal_places=2, default=0)
+    CURRENCY = (
+        ('H', u'гринва'),
+        ('S', u'доллар'),
+        ('E', u'евро'),
+    )
+    currency = models.CharField(u'Валюта',max_length=1, choices=CURRENCY, default="H")
     created_date = CreationDateTimeField(_('creation date'))
     updated_date = ModificationDateTimeField(_('modification date'))
     present = models.BooleanField(u'Есть в наличии', default=True)
@@ -191,10 +197,12 @@ class ArticleItem(models.Model):
 
     def get_price(self):
         """ calculate price """
-        try:
-            return float(self.price) * float(Constant.get_const('currency'))
-        except TypeError:
+        if self.currency == "H":
             return float(self.price)
+        elif self.currency == "S":
+            return float(self.price) * float(Constant.get_const('usd_currency'))
+        elif self.currency == "E":
+            return float(self.price) * float(Constant.get_const('euro_currency'))
 
     def set_tags(self, tags):
         Tag.objects.update_tags(self, tags)
@@ -250,17 +258,21 @@ class CartItem(models.Model):
 
     def get_price(self):
         """ calculate price """
-        try:
-            return float(self.price) * float(Constant.get_const('currency'))
-        except TypeError:
+        if self.item.currency == "H":
             return float(self.price)
+        elif self.item.currency == "S":
+            return float(self.price) * float(Constant.get_const('usd_currency'))
+        elif self.item.currency == "E":
+            return float(self.price) * float(Constant.get_const('euro_currency'))
 
     def get_total_price(self):
         """ return item total price """
-        try:
-            return float(self.price) * float(self.quantity) * float(Constant.get_const('currency'))
-        except TypeError:
+        if self.item.currency == "H":
             return float(self.price) * float(self.quantity)
+        elif self.item.currency == "S":
+            return float(self.price) * float(self.quantity) * float(Constant.get_const('usd_currency'))
+        elif self.item.currency == "E":
+            return float(self.price) * float(self.quantity) * float(Constant.get_const('euro_currency'))
 
     def __unicode__(self):
         return unicode(self.item)
