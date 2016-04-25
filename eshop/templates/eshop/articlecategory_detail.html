@@ -48,20 +48,20 @@
     {% endif %}
     {% if child_articles %}
     <ul id="items">
-        <li class="first_row">
-            <p class="kod">Код</p>
-            <p class="color">Цвет</p>
-            <p class="can">Фасовка материала</p>
-            <p class="pack">Упаковка, шт</p>
-            <p class="price">Стоимость, грн.</p>
+        <li>
+            <p>Код</p>
+            <p>Цвет</p>
+            <p>Фасовка материала</p>
+            <p>Упаковка, шт</p>
+            <p>Стоимость, грн.</p>
         </li>
 	    {% for article in child_articles.all %}
 		    {% ifchanged article.color %}
             <li {% if not article.present %}class="empty"{% endif %}>
-                <p class="kod">{{ article.kod_tovara }}</p>
+                <p>{{ article.kod_tovara }}</p>
                 {% if article.color %}
-                <p class="color">{{ article.color|upper }}</p>
-                <div class="palette" style="background-color: {{ article.palette }}">
+                <p>{{ article.color|upper }}</p>
+                <p style="background-color: {{ article.palette }}">
                     {% if article.image %}
                     {% thumbnail article.image "x50" as im %}
                         {% thumbnail article.image "x600" as imbig %}
@@ -69,21 +69,21 @@
                         {% endthumbnail %}
                     {% endthumbnail %}
                     {% endif %}
-                    </div>
+                    </p>
                 {% else %}
-                <p class="color"></p>
-                <div class="palette" style="border: none"></div>
+                <p></p>
+                <div style="border: none"></div>
                 {% endif %}
             {% else %}
             <li class="same_color {% if not article.present %}empty{% endif %}" >
-                <p class="kod">{{ article.kod_tovara }}</p>
-                <p class="color"></p>
-                <div class="palette whiteborder"></div>
+                <p>{{ article.kod_tovara }}</p>
+                <p></p>
+                <p></p>
             {% endifchanged %}
-                <p class="can">{{ article.can }}</p>
-                <p class="pack">{{ article.pack }}</p>
+                <p>{{ article.can }}</p>
+                <p>{{ article.pack }}</p>
                 {% if article.present %}
-                    <p class="price">{{ article.get_price }}</p>
+                    <p>{{ article.get_price }}</p>
                 <form>
                     <span class="minus">-</span>
                     <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1">
@@ -91,7 +91,7 @@
                     <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Купить</a>
                 </form>
                 {% else %}
-                    <p class="price">{{ article.get_price }}</p>
+                    <p>{{ article.get_price }}</p>
                 <form>
                     <p>Нет на складе</p>
                     <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1" style="display:none">
