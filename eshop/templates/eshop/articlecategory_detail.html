@@ -49,14 +49,16 @@
     {% if child_articles %}
     <ul id="items">
         <li class="first_row">
-            <p class="color">{% if article.color %}Цвет{% endif %}</p>
+            <p class="kod">Код</p>
+            <p class="color">Цвет</p>
             <p class="can">Фасовка материала</p>
             <p class="pack">Упаковка, шт</p>
             <p class="price">Стоимость, грн.</p>
         </li>
 	    {% for article in child_articles.all %}
 		    {% ifchanged article.color %}
-            <li>
+            <li {% if not article.present %}class="empty"{% endif %}>
+                <p class="kod">{{ article.kod_tovara }}</p>
                 {% if article.color %}
                 <p class="color">{{ article.color|upper }}</p>
                 <div class="palette" style="background-color: {{ article.palette }}">
@@ -73,7 +75,8 @@
                 <div class="palette" style="border: none"></div>
                 {% endif %}
             {% else %}
-                <li class="same_color">
+            <li class="same_color {% if not article.present %}empty{% endif %}" >
+                <p class="kod">{{ article.kod_tovara }}</p>
                 <p class="color"></p>
                 <div class="palette whiteborder"></div>
             {% endifchanged %}
@@ -88,7 +91,12 @@
                     <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Купить</a>
                 </form>
                 {% else %}
+                    <p class="price">{{ article.get_price }}</p>
+                <form>
                     <p>Нет на складе</p>
+                    <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1" style="display:none">
+                    <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Заказать</a>
+                    </form>
                 {% endif %}
 			</li>
         {% endfor %}
