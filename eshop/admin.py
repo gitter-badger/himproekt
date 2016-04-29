@@ -20,7 +20,7 @@ class ArticleCategoryAdmin(MPTTModelAdmin):
     """Customize article's category admin page."""
 
     search_fields = ('id', 'name',)
-    list_display = ('get_thumbnail_html', 'name', 'published', 'order')
+    list_display = ('get_thumbnail_html', 'name', 'published', 'order',)
     list_filter  = ('published',)
     ordering     = ('name', 'published')
     list_display_links = ('name',)
@@ -37,7 +37,7 @@ class ArticleItemAdmin(admin.ModelAdmin):
 
     form = ArticleItemAdminForm
     search_fields = ('id', 'name', 'kod_tovara')
-    list_display = ('name', 'price', 'action_product', 'popular_product','new_product','present', 'published')
+    list_display = ('main_category', 'name', 'price', 'currency', 'action_product', 'popular_product','new_product','present', 'published')
     list_display_links = ('name',)
     list_filter  = ('action_product', 'published', 'categories')
     ordering     = ('name', 'categories', 'published')

@@ -143,7 +143,7 @@ class ArticleItem(models.Model):
     published = models.BooleanField(_('published'), default=True)
     price = models.DecimalField(_('price'), max_digits=10, decimal_places=2, default=0)
     CURRENCY = (
-        ('H', u'гринва'),
+        ('H', u'гривна'),
         ('S', u'доллар'),
         ('E', u'евро'),
     )
