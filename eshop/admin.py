@@ -44,7 +44,7 @@ class ArticleItemAdmin(admin.ModelAdmin):
     inlines = (ArticleImageInlineAdmin, )
     prepopulated_fields = {"slug": ("name",)}
     filter_horizontal = ('categories',)
-    list_editable = ('price', 'action_product', 'popular_product','new_product', 'present', 'published')
+    list_editable = ('price', 'currency', 'action_product', 'popular_product','new_product', 'present', 'published')
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'palette':
