@@ -6,6 +6,7 @@ Author:
     Vitaly Omelchuk <vitaly.omelchuk@gmail.com>
 """
 from .models import Cart, ArticleCategory, ArticleItem
+from main.models import Certificate
 from django.core.cache import cache
 
 def eshop(request):
@@ -21,6 +22,7 @@ def eshop(request):
                     filter(new_product=True).order_by("order")
     extra_context['popular_product'] = ArticleItem.objects.\
                     filter(popular_product=True).order_by("order")
+    extra_context['certificates_all'] = Certificate.objects.order_by("name")
     cart_id = request.session.get('cart', None)
     if cart_id is not None:
         cart_cache_name = u"cart_%d" % cart_id

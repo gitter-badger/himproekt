@@ -355,9 +355,11 @@ section #breadcrumbs{
     color: #420081;
     font-size: 0.7em;}
 section #breadcrumbs a{color: #1F0039;}
+section div#certif {text-align:center}
 section img.item_pic {float:left;max-width: 300px;}
 section h2{text-align:center;height:85px;padding: 35px 0 50px;background: url("../img/bot_paint.png") 50% 100% no-repeat}
 section h3{text-align:center;}
+section h2.only_cat{line-height:45px;padding: 10px;}
 section h2.only_cat{line-height:45px;padding: 10px;}
 section p{text-align:justify;text-indent: 20px;font-size: 0.8em;margin: 10px;font-weight: normal;}
 section div#socseti{position: absolute;right: 5px;top:5px}

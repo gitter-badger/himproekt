@@ -5,6 +5,8 @@
 {% load i18n %}
 {% load mptt_tags %}
 {% load thumbnail %}
+{% load i18n cache flatpages %}
+{% get_flatpages as flatpages %}
 <html>
     <head>
 		<link href="{{ MEDIA_URL }}favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -33,11 +35,11 @@
         <a href="/" id="logo"></a>
         <div id="top_menu">
             <a href="/about/">О Магазине</a> |
-            <a href="/">Сотрудничество</a> |
-            <a href="/">Для конкурентов</a> |
-            <a href="/">Доставка и оплата</a> |
-            <a href="/">Оформление заказа</a> |
-            <a href="/">Контакты</a>
+            <a href="/sotrudnichestvo/">Сотрудничество</a> |
+            <a href="/for_competitors/">Для конкурентов</a> |
+            <a href="/dostavka_i_oplata/">Доставка и оплата</a> |
+            <a href="/oformlenie_zakaza/">Оформление заказа</a> |
+            <a href="/contact/">Контакты</a>
         </div>
         <a href="/eshop/cart/" id="bag">У вас <span id="cart-quantity"></span> заказов на сумму <span id="cart-price"></span> грн.</a>
         <form action="{% url search %}" method="get" class="search">
@@ -68,9 +70,11 @@
     {% endblock %}
     </main>
     <footer>
-        <p>Интернет-магазин лакокрасочной продукции "ХИМПРОЕКТ"</p>
-        <p>Дальницкая 44, Одесса, Одесская область, Украина</p>
-        <p>Телефон: +380 (63) 474-78-41, +380 (48) 731-24-77</p>
+        {% for flatpage in flatpages %}
+            {% if flatpage.url == "/contact/" %}
+            {{ flatpage.content|safe }}
+            {% endif %}
+        {% endfor %}
     </footer>
 	{{ constants.google_analytics|safe }}
 	<span id="item-add-box" class="item_add_hidden">Товар добавлен в корзину!</span>
