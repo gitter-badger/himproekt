@@ -5,7 +5,7 @@ from django.contrib.sites.models import Site
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 from django.contrib.flatpages.admin import FlatPageAdmin as DefaultFlatPageAdmin
 from django.conf import settings
-from main.models import Constant, News
+from main.models import Constant, News, Certificate
 from django.utils.translation import ugettext as _
 
 admin.site.unregister(User)
@@ -94,7 +94,14 @@ class NewsAdmin(admin.ModelAdmin):
     class Media:
         js = ('tiny_mce/tiny_mce.js', 'tiny_mce/init.js')
 
+class CertificateAdmin(admin.ModelAdmin):
+    """Customize certificates admin page"""
+
+    list_display = ('name', 'created_date')
+    ordering     = ('name', 'created_date')
+
 admin.site.register(User, UserAdmin)
 admin.site.register(FlatPage, FlatPageAdmin)
 admin.site.register(Constant, ConstantAdmin)
 admin.site.register(News, NewsAdmin)
+admin.site.register(Certificate, CertificateAdmin)

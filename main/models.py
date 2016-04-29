@@ -12,6 +12,11 @@ class NewsManager(models.Manager):
     def all_news(self):
         return self.get_query_set().filter(published=True)
 
+class CertificateManager(models.Manager):
+
+    def all_certificates(self):
+        return self.get_query_set().filter(published=True)
+
 class Constant(models.Model):
     """ define application constants """
 
@@ -72,4 +77,23 @@ class News(models.Model):
     class Meta:
         verbose_name = _('news_page')
         verbose_name_plural = _('news_pages')
+        ordering = ['created_date']
+
+class Certificate(models.Model):
+    """ Model for certificates."""
+
+    name         = models.CharField(_('name'), max_length=255, unique=True)
+    content      = models.TextField(_('content'))
+    image        = models.ImageField(_('image'), upload_to="certificate", blank=True)
+    created_date = CreationDateTimeField(_('creation date'))
+    updated_date = ModificationDateTimeField(_('modification date'))
+
+    objects = CertificateManager()
+
+    def __unicode__(self):
+        return unicode(self.name)
+
+    class Meta:
+        verbose_name = _('certificate')
+        verbose_name_plural = _('certificates')
         ordering = ['created_date']
