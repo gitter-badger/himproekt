@@ -7,15 +7,6 @@
 {% block content %}
 <section>
     <div id="breadcrumbs"><a href="/">Главная</a> » Корзина покупателя</div>
-    <h3>Наши сертификаты</h3>
-    <div id="certif">{% for certificate in certificates_all %}
-        {% thumbnail certificate.image "x150" as im %}
-            {% thumbnail certificate.image "x600" as imbig %}
-                <a href="{{ imbig.url }}" data-lightbox="Наши сертификаты" data-title="{{ certificate.name }}"><img src="{{ im.url }}" alt="{{ certificate.name }}"></a>
-            {% endthumbnail %}
-        {% endthumbnail %}
-    {% endfor %}
-    </div>
     <h2 class="only_cat">Оформить заказ</h2>
     <table id="artile-table-list">
 		<form name="cart" method="post" action="{% url send_cart %}">
