@@ -70,11 +70,7 @@
     {% endblock %}
     </main>
     <footer>
-        {% for flatpage in flatpages %}
-            {% if flatpage.url == "/contact/" %}
-            {{ flatpage.content|safe }}
-            {% endif %}
-        {% endfor %}
+        {{ constants.adres_footer|safe }}
     </footer>
 	{{ constants.google_analytics|safe }}
 	<span id="item-add-box" class="item_add_hidden">Товар добавлен в корзину!</span>
