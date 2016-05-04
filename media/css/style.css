@@ -17,6 +17,10 @@ body {
     font-family: "Helvetica","Arial",sans-serif;
     border: solid 0px white;
 }
+@media screen and (min-width: 1200px) {
+    body {width: 1200px;}
+}
+
 @font-face {
     font-family: 'Georgia';
     font-weight: normal;
@@ -31,6 +35,9 @@ a:hover{text-decoration: underline}
   float: left;
   margin: 5px 0px 5px 30px;
   position: relative;
+}
+@media screen and (min-width: 1200px) {
+    .search {width: 75%;}
 }
 
 .search input {
@@ -90,6 +97,9 @@ header a#bag {
     text-align: center;
     background: url('../img/bag.png') right no-repeat;
 }
+@media screen and (min-width: 1200px) {
+    header a#bag{margin: 0px 15px;}
+}
 header a#bag:hover {color: #ffffff;}
 nav.topnav{font-family: 'PT Sans',sans-serif;
     background: url('../img/menu_fon.png') bottom no-repeat;
@@ -100,6 +110,13 @@ nav.topnav{font-family: 'PT Sans',sans-serif;
     padding: 0;
     width: 1000px;
     z-index: 10000
+}
+@media screen and (min-width: 1200px) {
+    nav.topnav {
+    background: url('../img/menu_fon_b.png') bottom no-repeat;
+    margin: 90px auto 25px;
+    padding: 0;
+    width: 1200px;}
 }
 nav.topnav ul,
 nav.topnav ul ul,
@@ -129,6 +146,7 @@ nav.topnav ul li {
     float: left;
     height: 50px;
 }
+
 nav.topnav ul li:last-child {
     border: none;
     -webkit-box-shadow: none;
@@ -143,6 +161,9 @@ nav.topnav ul li a {
     max-width: 95px;
     font-weight: bold;
 }
+@media screen and (min-width: 1200px) {
+    nav.topnav ul li a{max-width: 105px;padding: 5px 10px;}
+}
 nav.topnav ul > li:hover > a{
     background-color: #EF7D18;
     background-image: -moz-linear-gradient(#efa218, #EF7D18);
@@ -150,7 +171,7 @@ nav.topnav ul > li:hover > a{
     background-image: -webkit-linear-gradient(#efa218, #EF7D18);
     background-image: -o-linear-gradient#efa218, #EF7D18);
     background-image: linear-gradient(#efa218, #EF7D18);
-    color: #fafafa
+    color: #fafafa;
 }
 
 nav.topnav > ul > li.parent > a::after {
@@ -326,6 +347,9 @@ img.main_pic{
     right: 0;
     top: 0px;
 }
+@media screen and (min-width: 1200px) {
+    img.main_pic{right: 50px;}
+}
 article.sliders{clear: both;margin: 10px 0}
 article.sliders h3{color:#ffffff;float: left;line-height: 220px;width: 220px;background: url('../img/logo_free.png') 50% 45% no-repeat; text-align: center;font-size: 1.2em;padding-right: 28px;}
 footer{
@@ -373,7 +397,9 @@ section ul#items li{width: 100%;height: 60px;border-bottom: 1px solid white;posi
 section ul#items li.same_color{border-top: solid 1px #ffffff;}
 section ul#items li:last-child{border-bottom: solid 1px #EF7D18;}
 section ul#items li:first-child{background: #EF7D18;color:#ffffff}
-section ul#items li:first-child p{}
+@media screen and (min-width: 1200px){
+    section ul#items li p:first-child {margin-left:125px}
+}
 section ul#items li:first-child p+p{width:240px}
 section ul#items li:first-child p:nth-child(3){width:110px;border: solid 0px;line-height: 24px;}
 section ul#items li:first-child p+p+p+p{width:130px}
