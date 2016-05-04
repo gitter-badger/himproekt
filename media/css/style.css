@@ -368,7 +368,14 @@ div.slide img{margin: 0 auto;height: 160px;max-width:200px}
 div.slide a, section ul#catalog li a p.slide_price{font-size: 1em;color:#EF7D18;font-weight: bold;margin-top:5px;display: block;}
 div.slide a{border:solid 1px #ffffff}
 div.slide a:hover{border:solid 1px #EF7D18;text-decoration:none }
-
+@media screen and (min-width: 1200px) {
+    div.slide {
+    margin:0px 45px}
+}
+@media screen and (min-width: 1200px) {
+    div.slider2 div.slide {
+    margin:0px 55px}
+}
 main{
     margin: 10px;
     padding: 10px;
@@ -561,7 +568,10 @@ section div#contact_form .submit {
     display: inline-block;
     border: 2px dashed #EF7D18;
 }
-
+@media screen and (min-width: 1200px) {
+    .bx-wrapper {
+    max-width:900px!important;}
+}
 .bx-wrapper img {
 	max-width: 100%;
 	display: block;
