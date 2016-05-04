@@ -37,7 +37,7 @@ a:hover{text-decoration: underline}
   position: relative;
 }
 @media screen and (min-width: 1200px) {
-    .search {width: 75%;}
+    .search {width: 79%;}
 }
 
 .search input {
@@ -82,7 +82,7 @@ input[type="search"] {
 header{position: relative;padding-top:5px}
 header a#logo{background: url('../img/logo.png') 50% no-repeat;display: block;width:220px;height: 70px;float:left}
 header div#top_menu{position:relative;float: left;line-height: 20px;color:#ffffff;padding-bottom: 10px;margin: 0 0 0 26px;}
-header div#top_menu a{margin: 0 22px;color:#D0D0D0;font-size: 0.8em;line-height: 20px}
+header div#top_menu a{margin: 0 25px;color:#D0D0D0;font-size: 0.8em;line-height: 20px}
 header div#top_menu a:hover{color:#ffffff}
 
 header a#bag {
