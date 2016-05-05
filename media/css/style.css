@@ -101,7 +101,8 @@ header a#bag {
     header a#bag{margin: 0px 15px;}
 }
 header a#bag:hover {color: #ffffff;}
-nav.topnav{font-family: 'PT Sans',sans-serif;
+nav.topnav{
+    font-family: 'Roboto', sans-serif;
     background: url('../img/menu_fon.png') bottom no-repeat;
     position: relative;
     border: none;
@@ -128,12 +129,12 @@ nav.topnav ul ul li {
 nav.topnav ul {
     clear: left;
     position: relative;
-    right: 50%;
+    left: 0;
     height: 40px;
-    float: right;
+    float: left;
     text-align: center;
     font-size: 0.85em ;
-    margin-top: 295px;
+    margin: 295px 0 0 10px;
 }
 nav.topnav ul li {
     box-shadow: 2px 0 0 #444;
@@ -142,7 +143,6 @@ nav.topnav ul li {
     -ms-box-shadow: 2px 0 0 #444;
     -webkit-box-shadow: 2px 0 0 #444;
     position: relative;
-    left: 50%;
     float: left;
     height: 50px;
 }
@@ -158,11 +158,11 @@ nav.topnav ul li a {
     color: #000000;
     text-decoration: none;
     padding: 5px 5px;
-    max-width: 95px;
+    max-width: 100px;
     font-weight: bold;
 }
 @media screen and (min-width: 1200px) {
-    nav.topnav ul li a{max-width: 105px;padding: 5px 10px;}
+    nav.topnav ul li a{max-width: 105px;padding: 5px 8px;margin: 0 0 0 4px;}
 }
 nav.topnav ul > li:hover > a{
     background-color: #EF7D18;
