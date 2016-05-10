@@ -133,8 +133,13 @@ nav.topnav ul {
     height: 40px;
     float: left;
     text-align: center;
-    font-size: 0.85em ;
+    font-size: 0.8em;
     margin: 295px 0 0 10px;
+}
+@media screen and (min-width: 1200px) {
+    nav.topnav ul {
+    font-size: 0.85em;
+    }
 }
 nav.topnav ul li {
     box-shadow: 2px 0 0 #444;
@@ -158,11 +163,11 @@ nav.topnav ul li a {
     color: #000000;
     text-decoration: none;
     padding: 5px 5px;
-    max-width: 100px;
+    max-width: 115px;
     font-weight: bold;
 }
 @media screen and (min-width: 1200px) {
-    nav.topnav ul li a{max-width: 105px;padding: 5px 8px;margin: 0 0 0 4px;}
+    nav.topnav ul li a{max-width: 125px;padding: 5px 8px;margin: 0 0 0 4px;}
 }
 nav.topnav ul > li:hover > a{
     background-color: #EF7D18;

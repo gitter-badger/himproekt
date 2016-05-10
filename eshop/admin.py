@@ -37,13 +37,12 @@ class ArticleItemAdmin(admin.ModelAdmin):
 
     form = ArticleItemAdminForm
     search_fields = ('id', 'name', 'kod_tovara')
-    list_display = ('main_category', 'name', 'price', 'currency', 'action_product', 'popular_product','new_product','present', 'published')
+    list_display = ('name', 'price', 'currency', 'action_product', 'popular_product','new_product','present', 'published')
     list_display_links = ('name',)
     list_filter  = ('action_product', 'published', 'categories')
     ordering     = ('name', 'categories', 'published')
     inlines = (ArticleImageInlineAdmin, )
     prepopulated_fields = {"slug": ("name",)}
-    filter_horizontal = ('categories',)
     list_editable = ('price', 'currency', 'action_product', 'popular_product','new_product', 'present', 'published')
 
     def formfield_for_dbfield(self, db_field, **kwargs):

@@ -13,7 +13,7 @@ def eshop(request):
     """ add current cart in template context """
     extra_context = {}
     extra_context['root_categories'] = ArticleCategory.objects.\
-                    filter(published=True, parent__isnull=True).order_by("-order")
+                    filter(published=True, parent__isnull=True).order_by("order")
     extra_context['brand_categories'] = ArticleCategory.objects.\
                     filter(parent=205, published=True)
     extra_context['slider_action'] = ArticleItem.objects.\

@@ -12,14 +12,12 @@ from time import strftime
 
 fields_name = (
     'is_category',  # признак категории
+    'order',  # номер по порядку
     'id',  # айдишник
     'name',  # наименование
     'slug',  # слаг
     'parent_id',  # родительский айдишник
     'image',  # картинка
-    'description', # описание
-    'manufacturer', # производитель
-    'country', # страна
 )
 
 
@@ -66,13 +64,11 @@ def do_import_file(reader, stderr):
         print(row)
         #try:
         category, _ = ArticleCategory.objects.get_or_create(id=row['id'])
+        category.order = row['order'] if row['order'] else 0
         category.name = row['name']
         category.slug = row['slug']
         category.parent = ArticleCategory.objects.get(id=row['parent_id']) if row['parent_id'] else None
         category.image = row['image']
-        category.description = row['description']
-        category.manufacturer = row['manufacturer']
-        category.country = row['country']
         category.save()
 
         #except Exception as e:

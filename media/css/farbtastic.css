@@ -38,11 +38,35 @@
 /**
  * Adminpanel add css
  */
-.selector {width: 850px;float: left;
-}
-.selector-available, .selector-chosen {width: 400px;}
-.selector select{width:400px}
-.selector .selector-available input {width: 360px;}
-
-.field-manufacturer,.field-country{width:40%;float: left;}
-.field-country{width:40%;float: right;}
+#articleitem_form div.field-property_name1, #articleitem_form div.field-property_value1, #articleitem_form div.field-property_unit1,
+#articleitem_form div.field-property_name2, #articleitem_form div.field-property_value2, #articleitem_form div.field-property_unit2,
+#articleitem_form div.field-property_name3, #articleitem_form div.field-property_value3, #articleitem_form div.field-property_unit3,
+#articleitem_form div.field-property_name4, #articleitem_form div.field-property_value4, #articleitem_form div.field-property_unit4,
+#articleitem_form div.field-property_name5, #articleitem_form div.field-property_value5, #articleitem_form div.field-property_unit5,
+#articleitem_form div.field-property_name6, #articleitem_form div.field-property_value6, #articleitem_form div.field-property_unit6,
+#articleitem_form div.field-property_name7, #articleitem_form div.field-property_value7, #articleitem_form div.field-property_unit7,
+#articleitem_form div.field-property_name8, #articleitem_form div.field-property_value8, #articleitem_form div.field-property_unit8,
+#articleitem_form div.field-property_name9, #articleitem_form div.field-property_value9, #articleitem_form div.field-property_unit9,
+#articleitem_form div.field-property_name10, #articleitem_form div.field-property_value10, #articleitem_form div.field-property_unit10,
+#articleitem_form div.field-property_name11, #articleitem_form div.field-property_value11, #articleitem_form div.field-property_unit11,
+#articleitem_form div.field-property_name12, #articleitem_form div.field-property_value12, #articleitem_form div.field-property_unit12,
+#articleitem_form div.field-property_name13, #articleitem_form div.field-property_value13, #articleitem_form div.field-property_unit13,
+#articleitem_form div.field-property_name14, #articleitem_form div.field-property_value14, #articleitem_form div.field-property_unit14,
+#articleitem_form div.field-property_name15, #articleitem_form div.field-property_value15, #articleitem_form div.field-property_unit15,
+#articleitem_form div.field-property_name16, #articleitem_form div.field-property_value16, #articleitem_form div.field-property_unit16,
+#articleitem_form div.field-property_name17, #articleitem_form div.field-property_value17, #articleitem_form div.field-property_unit17,
+#articleitem_form div.field-property_name18, #articleitem_form div.field-property_value18, #articleitem_form div.field-property_unit18,
+#articleitem_form div.field-property_name19, #articleitem_form div.field-property_value19, #articleitem_form div.field-property_unit19,
+#articleitem_form div.field-property_name20, #articleitem_form div.field-property_value20, #articleitem_form div.field-property_unit20
+{width:30%;display: inline-block}
+#articleitem_form div.field-property_unit1 label,#articleitem_form div.field-property_unit2 label,
+#articleitem_form div.field-property_unit3 label,#articleitem_form div.field-property_unit4 label,
+#articleitem_form div.field-property_unit5 label,#articleitem_form div.field-property_unit6 label,
+#articleitem_form div.field-property_unit7 label,#articleitem_form div.field-property_unit8 label,
+#articleitem_form div.field-property_unit9 label,#articleitem_form div.field-property_unit10 label,
+#articleitem_form div.field-property_unit11 label,#articleitem_form div.field-property_unit12 label,
+#articleitem_form div.field-property_unit13 label,#articleitem_form div.field-property_unit14 label,
+#articleitem_form div.field-property_unit15 label,#articleitem_form div.field-property_unit16 label,
+#articleitem_form div.field-property_unit17 label,#articleitem_form div.field-property_unit18 label,
+#articleitem_form div.field-property_unit19 label,#articleitem_form div.field-property_unit20 label
+{width:10em}
