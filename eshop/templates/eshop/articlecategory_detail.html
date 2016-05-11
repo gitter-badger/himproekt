@@ -47,101 +47,21 @@
     </ul>
     {% endif %}
     {% if child_articles %}
-        {% comment %}
-    <ul id="items">
-        <li>
-            <p>Код</p>
-            <p>Цвет</p>
-            <p>Фасовка материала</p>
-            <p>Упаковка, шт</p>
-            <p>Стоимость, грн.</p>
+        <ul id="catalog">
+        {% for article in child_articles.all %}
+        {% ifchanged article.union_name %}
+	    <li>
+            <a href="{{ article.get_absolute_url }}">
+                <p>{{ article.union_name }}</p>
+                {% thumbnail article.image "x140" as im %}
+                <img src="{{ im.url }}" alt="{{ article.union_name }}">
+                {% endthumbnail %}
+                <p class="slide_price">Подробнее...</p>
+            </a>
         </li>
-	    {% for article in child_articles.all %}
-		    {% ifchanged article.color %}
-            <li {% if not article.present %}class="empty"{% endif %}>
-                <p>{{ article.kod_tovara }}</p>
-                {% if article.color %}
-                <p>{{ article.color|upper }}</p>
-                <p style="background-color: {{ article.palette }}">
-                    {% if article.image %}
-                    {% thumbnail article.image "x50" as im %}
-                        {% thumbnail article.image "x600" as imbig %}
-                        <a href="{{ imbig.url }}" data-lightbox="{{ article.id }}" data-title="{{ category.name }}. {{ article.color }}"><img src="{{ im.url }}" alt="{{ category.name }}. {{ article.color }}"></a>
-                        {% endthumbnail %}
-                    {% endthumbnail %}
-                    {% endif %}
-                    </p>
-                {% else %}
-                <p></p>
-                <p style="border: none"></p>
-                {% endif %}
-            {% else %}
-            <li class="same_color {% if not article.present %}empty{% endif %}" >
-                <p>{{ article.kod_tovara }}</p>
-                <p></p>
-                <p></p>
-            {% endifchanged %}
-                <p>{{ article.can }}</p>
-                <p>{{ article.pack }}</p>
-                {% if article.present %}
-                    <p>{{ article.get_price }}</p>
-                <form>
-                    <span class="minus">-</span>
-                    <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1">
-                    <span class="plus">+</span>
-                    <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Купить</a>
-                </form>
-                {% else %}
-                    <p>{{ article.get_price }}</p>
-                <form>
-                    <p>Нет на складе</p>
-                    <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1" style="display:none">
-                    <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Заказать</a>
-                    </form>
-                {% endif %}
-			</li>
+        {% endifchanged %}
         {% endfor %}
-    </ul>
-    {% endif %}
-    {% if child_articles %}
-    <div class="tabs">
-        <ul class="tabs__caption">
-            <li class="active">Описание</li>
-            <li>Характеристики</li>
         </ul>
-        <div class="tabs__content active">
-            {{ category.description|safe }}
-        </div>
-        <div class="tabs__content">
-        <table id="character">
-            <tbody>
-            {% if category.manufacturer %}<tr><td>Производитель</td><td>{{ category.manufacturer }}</td></tr>{% endif %}
-            {% if category.country %}<tr><td>Страна</td><td>{{ category.country }}</td></tr>{% endif %}
-            {% if category.property_name1 %}<tr><td>{{ category.property_name1 }}</td><td>{{ category.property_value1 }}</td></tr>{% endif %}
-            {% if category.property_name2 %}<tr><td>{{ category.property_name2 }}</td><td>{{ category.property_value2 }}</td></tr>{% endif %}
-            {% if category.property_name3 %}<tr><td>{{ category.property_name3 }}</td><td>{{ category.property_value3 }}</td></tr>{% endif %}
-            {% if category.property_name4 %}<tr><td>{{ category.property_name4 }}</td><td>{{ category.property_value4 }}</td></tr>{% endif %}
-            {% if category.property_name5 %}<tr><td>{{ category.property_name5 }}</td><td>{{ category.property_value5 }}</td></tr>{% endif %}
-            {% if category.property_name6 %}<tr><td>{{ category.property_name6 }}</td><td>{{ category.property_value6 }}</td></tr>{% endif %}
-            {% if category.property_name7 %}<tr><td>{{ category.property_name7 }}</td><td>{{ category.property_value7 }}</td></tr>{% endif %}
-            {% if category.property_name8 %}<tr><td>{{ category.property_name8 }}</td><td>{{ category.property_value8 }}</td></tr>{% endif %}
-            {% if category.property_name9 %}<tr><td>{{ category.property_name9 }}</td><td>{{ category.property_value9 }}</td></tr>{% endif %}
-            {% if category.property_name10 %}<tr><td>{{ category.property_name10 }}</td><td>{{ category.property_value10 }}</td></tr>{% endif %}
-            {% if category.property_name11 %}<tr><td>{{ category.property_name11 }}</td><td>{{ category.property_value11 }}</td></tr>{% endif %}
-            {% if category.property_name12 %}<tr><td>{{ category.property_name12 }}</td><td>{{ category.property_value12 }}</td></tr>{% endif %}
-            {% if category.property_name13 %}<tr><td>{{ category.property_name13 }}</td><td>{{ category.property_value13 }}</td></tr>{% endif %}
-            {% if category.property_name14 %}<tr><td>{{ category.property_name14 }}</td><td>{{ category.property_value14 }}</td></tr>{% endif %}
-            {% if category.property_name15 %}<tr><td>{{ category.property_name15 }}</td><td>{{ category.property_value15 }}</td></tr>{% endif %}
-            {% if category.property_name16 %}<tr><td>{{ category.property_name16 }}</td><td>{{ category.property_value16 }}</td></tr>{% endif %}
-            {% if category.property_name17 %}<tr><td>{{ category.property_name17 }}</td><td>{{ category.property_value17 }}</td></tr>{% endif %}
-            {% if category.property_name18 %}<tr><td>{{ category.property_name18 }}</td><td>{{ category.property_value18 }}</td></tr>{% endif %}
-            {% if category.property_name19 %}<tr><td>{{ category.property_name19 }}</td><td>{{ category.property_value19 }}</td></tr>{% endif %}
-            {% if category.property_name20 %}<tr><td>{{ category.property_name20 }}</td><td>{{ category.property_value20 }}</td></tr>{% endif %}
-            </tbody>
-        </table>
-        </div>
-    </div>
-    {% endcomment %}
     {% endif %}
     </section>
 {% endblock %}

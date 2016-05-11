@@ -234,6 +234,8 @@ class ArticleItem(models.Model):
     class Meta:
         verbose_name = _('article')
         verbose_name_plural = _('articles')
+        ordering = ['union_name', 'order']
+
 
 
 class ArticleImage(models.Model):

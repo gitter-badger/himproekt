@@ -10,79 +10,115 @@
 {% endblock %}
 
 {% block content %}
+    <section>
     <div id="breadcrumbs">
-        <a href="/">Главная</a> » <a href="/production/">Продукция</a>
+        <a href="/">Главная</a>
         {% for node in item.main_category.get_ancestors %}
 	    » <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
         {% endfor %}
 	» <a href="{{ item.main_category.get_absolute_url }}">{{ item.main_category.name }}</a>
 	</div>
-    <h2>{{ item.name }}</h2>
-    {% include "menu.html" %}
-<div id="right_column">
-	<div id="item">
-			<div id="image">
-            {% if item.action_product %}<img class="action" src="{{ MEDIA_URL }}img/aktion_b.png">{% endif %}
-            {% thumbnail item.image "300" as im %}
-                <a href="{{ item.image.url }}" rel="lightbox[{{ item.name }}]" title="{{ item.name }}"><img src="{{ im.url }}" alt="{{ item.name }}"></a>
-            {% endthumbnail %}
-			{% for img in item.articleimage_set.all %}
-            {% thumbnail img.image "300" as im %}
-			    <a href="{{ img.image.url }}" rel="lightbox[{{ item.name }}]" title="{{ item.name }}"><img src="{{ im.url }}" alt="{{ item.name }}"></a>
-			{% endthumbnail %}
-            {% endfor %}
-			<div class="pluso" data-background="#ebebeb" data-options="medium,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki"></div>
-            </div>
-            <span class="price">Цена: {{ item.price|floatformat }} грн.</span>
-            <form>
-				<input type="text" name="{{ item.pk }}" id="{{ item.pk }}_input" size=4 value="1">
-				<a id="{{ item.pk }}" href="#" onclick="addToCart('{{ item.pk }}');return false;">В корзину</a>
-            </form>
-            <p>На складе:{% if item.present %} есть {% else %} нет {% endif %}</p>
-            <p>Артикул: {{ item.kod_tovara }}</p>
-	{{ item.description|safe }}
-		<br>
-	</div>
-	{% with item.main_category.get_children_articles as articles %}
-		{% if articles|length > 1 %}
-		<div id="other_items_list"><h4>Похожие товары</h4>
-			<ul>
-			{% for article in articles %}
-				{% if article.id != item.id %}
-                {% thumbnail article.image "95x80" crop='center' as im %}
-				    <li><a href="{{ article.get_absolute_url }}"><span>{{ article.name }}</span><img src="{{ im.url }}" alt="{{ article.name }}"></a><p>{{ article.price }} грн.</p></li>
-                {% endthumbnail %}
-				{% endif %}
-			{% endfor %}
-			</ul>
-		</div>
-		{% endif %}
-	{% endwith %}
+    {% thumbnail item.image "x175" as im %}
+        {% thumbnail item.image "x600" as imbig %}
+    <a href="{{ imbig.url }}" data-lightbox="{{ item.id }}" data-title="{{ item.union_name }}."><img src="{{ im.url }}" class="item_pic" alt="{{ category.item.union_name }}"></a>
+        {% endthumbnail %}
+    {% endthumbnail %}
+    <h2>{{ item.union_name }}</h2>
+    <ul id="items">
+        <li>
+            <p>Код</p>
+            <p>Цвет</p>
+            <p>Фасовка материала</p>
+            <p>Упаковка, шт</p>
+            <p>Стоимость, грн.</p>
+        </li>
+        {% with item.main_category.get_children_articles as articles %}
+	    {% for article in articles %}
+            {% if item.union_name == article.union_name %}
+		    {% ifchanged article.color %}
+            <li {% if not article.present %}class="empty"{% endif %}>
+                <p>{{ article.kod_tovara }}</p>
+                {% if article.color %}
+                <p>{{ article.color|upper }}</p>
+                <p style="background-color: {{ article.palette }}">
+                    {% if article.image %}
+                    {% thumbnail article.image "x50" as im %}
+                        {% thumbnail article.image "x600" as imbig %}
+                        <a href="{{ imbig.url }}" data-lightbox="{{ article.id }}" data-title="{{ category.name }}. {{ article.color }}"><img src="{{ im.url }}" alt="{{ category.name }}. {{ article.color }}"></a>
+                        {% endthumbnail %}
+                    {% endthumbnail %}
+                    {% endif %}
+                    </p>
+                {% else %}
+                <p></p>
+                <p style="border: none"></p>
+                {% endif %}
+            {% else %}
+            <li class="same_color {% if not article.present %}empty{% endif %}" >
+                <p>{{ article.kod_tovara }}</p>
+                <p></p>
+                <p></p>
+            {% endifchanged %}
+                <p>{{ article.can }}</p>
+                <p>{{ article.pack }}</p>
+                {% if article.present %}
+                    <p>{{ article.get_price }}</p>
+                <form>
+                    <span class="minus">-</span>
+                    <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1">
+                    <span class="plus">+</span>
+                    <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Купить</a>
+                </form>
+                {% else %}
+                    <p>{{ article.get_price }}</p>
+                <form>
+                    <p>Нет на складе</p>
+                    <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1" style="display:none">
+                    <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Заказать</a>
+                    </form>
+                {% endif %}
+			</li>
+            {% endif %}
+        {% endfor %}
+        {% endwith %}
+    </ul>
+    <div class="tabs">
+        <ul class="tabs__caption">
+            {% if item.description %}<li>Описание</li> {% endif %}
+            <li class="active">Характеристики</li>
+        </ul>
+        <div class="tabs__content">
+            {{ item.description|safe }}
+        </div>
+        <div class="tabs__content active">
+        <table id="character">
+            <tbody>
+            {% if item.manufacturer %}<tr><td>Производитель</td><td>{{ item.manufacturer }}</td></tr>{% endif %}
+            {% if item.country %}<tr><td>Страна</td><td>{{ item.country }}</td></tr>{% endif %}
+            {% if item.property_name1 %}<tr><td>{{ item.property_name1 }}</td><td>{{ item.property_value1 }}</td></tr>{% endif %}
+            {% if item.property_name2 %}<tr><td>{{ item.property_name2 }}</td><td>{{ item.property_value2 }}</td></tr>{% endif %}
+            {% if item.property_name3 %}<tr><td>{{ item.property_name3 }}</td><td>{{ item.property_value3 }}</td></tr>{% endif %}
+            {% if item.property_name4 %}<tr><td>{{ item.property_name4 }}</td><td>{{ item.property_value4 }}</td></tr>{% endif %}
+            {% if item.property_name5 %}<tr><td>{{ item.property_name5 }}</td><td>{{ item.property_value5 }}</td></tr>{% endif %}
+            {% if item.property_name6 %}<tr><td>{{ item.property_name6 }}</td><td>{{ item.property_value6 }}</td></tr>{% endif %}
+            {% if item.property_name7 %}<tr><td>{{ item.property_name7 }}</td><td>{{ item.property_value7 }}</td></tr>{% endif %}
+            {% if item.property_name8 %}<tr><td>{{ item.property_name8 }}</td><td>{{ item.property_value8 }}</td></tr>{% endif %}
+            {% if item.property_name9 %}<tr><td>{{ item.property_name9 }}</td><td>{{ item.property_value9 }}</td></tr>{% endif %}
+            {% if item.property_name10 %}<tr><td>{{ item.property_name10 }}</td><td>{{ item.property_value10 }}</td></tr>{% endif %}
+            {% if item.property_name11 %}<tr><td>{{ item.property_name11 }}</td><td>{{ item.property_value11 }}</td></tr>{% endif %}
+            {% if item.property_name12 %}<tr><td>{{ item.property_name12 }}</td><td>{{ item.property_value12 }}</td></tr>{% endif %}
+            {% if item.property_name13 %}<tr><td>{{ item.property_name13 }}</td><td>{{ item.property_value13 }}</td></tr>{% endif %}
+            {% if item.property_name14 %}<tr><td>{{ item.property_name14 }}</td><td>{{ item.property_value14 }}</td></tr>{% endif %}
+            {% if item.property_name15 %}<tr><td>{{ item.property_name15 }}</td><td>{{ item.property_value15 }}</td></tr>{% endif %}
+            {% if item.property_name16 %}<tr><td>{{ item.property_name16 }}</td><td>{{ item.property_value16 }}</td></tr>{% endif %}
+            {% if item.property_name17 %}<tr><td>{{ item.property_name17 }}</td><td>{{ item.property_value17 }}</td></tr>{% endif %}
+            {% if item.property_name18 %}<tr><td>{{ item.property_name18 }}</td><td>{{ item.property_value18 }}</td></tr>{% endif %}
+            {% if item.property_name19 %}<tr><td>{{ item.property_name19 }}</td><td>{{ item.property_value19 }}</td></tr>{% endif %}
+            {% if item.property_name20 %}<tr><td>{{ item.property_name20 }}</td><td>{{ item.property_value20 }}</td></tr>{% endif %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </section>
 </div>
-<script type="text/javascript">
-    function addToCart(id){
-        var item = $('#' + id + '_input');
-        count = "" + item.val();
-        url = "{% url add_to_cart item.pk 1 %}";
-        url = url.substring(0, url.length-2) + count + "/";
-        $.ajax({
-                url: url,
-                type: 'GET',
-                datatype: 'json',
-                error: function(xhr, status, errorThrown) {
-                alert(errorThrown+'\n'+status+'\n'+xhr.statusText+'\n'+url);
-            },
-            success: function(data) {
-                $('#item-add-box').removeClass('item_add_hidden');
-                $('#item-add-box').addClass('item_add_visible');
-                setTimeout(function(){
-                    $('#item-add-box').addClass('item_add_hidden');
-                    $('#item-add-box').removeClass('item_add_visible');
-                    }, 2500);
-                $('#cart-quantity').html(data['total_count']);
-                $('#cart-price').html(data['total_price']);
-            }
-        });
-    }
-</script>
 {% endblock %}

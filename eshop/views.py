@@ -85,7 +85,7 @@ def category_detail(request, slug):
     category = get_object_or_404(ArticleCategory, slug=slug)
     extra_context = {
         'category': category,
-        'child_categories': category.get_children().order_by('name'),
-        'child_articles': category.articles.filter(published=True).order_by('palette', request.POST.get('sort_by', 'price')),
+        'child_categories': category.get_children().filter(published=True).order_by('name'),
+        'child_articles': category.articles.filter(published=True).order_by('union_name', 'palette', request.POST.get('sort_by', 'price')),
     }
     return direct_to_template(request, 'eshop/articlecategory_detail.html', extra_context=extra_context)
