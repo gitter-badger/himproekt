@@ -14,12 +14,12 @@
     <h2 class="only_cat">Результаты поиска по названию "{{ lookup_text }}":</h2>
     <ul id="catalog">
 	    {% for article in object_list %}
-            {% ifchanged article.main_category.name %}
+            {% ifchanged article.union_name %}
 	    <li>
-            <a href="{{ article.main_category.get_absolute_url }}">
-                <p>{{ article.main_category.name }}</p>
-                {% thumbnail article.main_category.image "x140" as im %}
-                <img src="{{ im.url }}" alt="{{ article.main_category.name }}">
+            <a href="{{ article.get_absolute_url }}">
+                <p>{{ article.union_name }}</p>
+                {% thumbnail article.image "x140" as im %}
+                <img src="{{ im.url }}" alt="{{ article.union_name }}">
                 {% endthumbnail %}
                 <p class="slide_price">Подробнее...</p>
             </a>
