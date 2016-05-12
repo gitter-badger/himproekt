@@ -132,6 +132,7 @@ def do_import_file(reader, stderr):
         article.name = row['name']
         article.union_name = row['union_name']
         article.slug = row['slug']
+        article.description = row['description']
         article.price = row['item_price'].replace(',', '.') if row['item_price'] else 0
         article.currency = row['currency']
         article.pack = row['pack'] if row['pack'] else 0

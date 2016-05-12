@@ -84,13 +84,13 @@
     </ul>
     <div class="tabs">
         <ul class="tabs__caption">
-            {% if item.description %}<li>Описание</li> {% endif %}
-            <li class="active">Характеристики</li>
+            <li class="active">Описание</li>
+            <li>Характеристики</li>
         </ul>
-        <div class="tabs__content">
+        <div class="tabs__content active">
             {{ item.description|safe }}
         </div>
-        <div class="tabs__content active">
+        <div class="tabs__content">
         <table id="character">
             <tbody>
             {% if item.manufacturer %}<tr><td>Производитель</td><td>{{ item.manufacturer }}</td></tr>{% endif %}
