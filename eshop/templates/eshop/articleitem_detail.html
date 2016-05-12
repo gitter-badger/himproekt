@@ -8,7 +8,11 @@
 {% block description %}
     {% block title %}{% block keywords %}{{ item.name }}. Отзывы и комментарии.{% endblock %} :: Купить в {{ block.super }}{% endblock %}
 {% endblock %}
-
+{% block main_image %}
+    {% thumbnail item.main_category.image "750x280" crop="center" as im %}
+    <img src="{{ im.url }}" alt="{{ item.main_category.name }}" class="main_pic">
+    {% endthumbnail %}
+{% endblock %}
 {% block content %}
     <section>
     <div id="breadcrumbs">
@@ -88,7 +92,7 @@
             <li>Характеристики</li>
         </ul>
         <div class="tabs__content active">
-            {{ item.description|safe }}
+            <p>{{ item.description|safe }}</p>
         </div>
         <div class="tabs__content">
         <table id="character">

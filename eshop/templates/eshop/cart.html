@@ -22,7 +22,7 @@
 			</tr>
 			{% for item in cart %}
 			<tr class="{% cycle regular,alt %}">
-				<td><a class="item" href="{{ item.get_absolute_url }}">{{ item.name }}</a></td>
+				<td><a class="item" href="{{ item.item.get_absolute_url }}">{{ item.item.name }}</a></td>
                 <td class="article-small-column">{{ item.color }}</td>
                 <td class="article-small-column"><i style="background-color: {{ item.item.palette }}"></i></td>
                 <td class="article-small-column">{{ item.get_price }} {% trans "usd" %}</td>

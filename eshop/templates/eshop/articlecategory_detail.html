@@ -4,15 +4,9 @@
     {% block title %}{% block keywords %}{{ category.name }}{% endblock %} :: Купить в {{ block.super }}{% endblock %}
 {% endblock %}
 {% block main_image %}
-    {% if child_categories %}
-    {% thumbnail category.image "750x385" crop="center" as im %}
+    {% thumbnail category.image "750x280" crop="center" as im %}
     <img src="{{ im.url }}" alt="{{ category.name }}" class="main_pic">
     {% endthumbnail %}
-    {% else %}
-    {% thumbnail category.parent.image "750x280" crop="center" as im %}
-    <img src="{{ im.url }}" alt="{{ category.parent.name }}" class="main_pic">
-    {% endthumbnail %}
-    {% endif %}
 {% endblock %}
 {% block content %}
     <section>
@@ -23,14 +17,7 @@
     <div id="socseti">
     <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter,viber"></div>
     </div>
-    {% if child_articles and not child_categories %}
-    {% thumbnail category.image "x175" as im %}
-        {% thumbnail category.image "x600" as imbig %}
-    <a href="{{ imbig.url }}" data-lightbox="{{ category.id }}" data-title="{{ category.name }}."><img src="{{ im.url }}" class="item_pic" alt="{{ category.name }}"></a>
-        {% endthumbnail %}
-    {% endthumbnail %}
-    {% endif %}
-    <h2 {% if child_categories %}class="only_cat"{% endif %}>{{ category.name }}</h2>
+    <h2 class="only_cat">{{ category.name }}</h2>
     {% if child_categories %}
 	<ul id="catalog">
 	    {% for child in category.children.all %}
@@ -47,7 +34,7 @@
     </ul>
     {% endif %}
     {% if child_articles %}
-        <ul id="catalog">
+    <ul id="catalog">
         {% for article in child_articles.all %}
         {% ifchanged article.union_name %}
 	    <li>
@@ -61,7 +48,7 @@
         </li>
         {% endifchanged %}
         {% endfor %}
-        </ul>
+    </ul>
     {% endif %}
     </section>
 {% endblock %}
