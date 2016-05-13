@@ -83,9 +83,16 @@ def show_cart(request):
 
 def category_detail(request, slug):
     category = get_object_or_404(ArticleCategory, slug=slug)
-    extra_context = {
-        'category': category,
-        'child_categories': category.get_children().filter(published=True).order_by('name'),
-        'child_articles': category.articles.filter(published=True).order_by('union_name', 'palette', request.POST.get('sort_by', 'price')),
-    }
+    if request.method == "POST":
+        extra_context = {
+            'category': category,
+            'child_categories': category.get_children().filter(published=True).order_by('name'),
+            'child_articles': category.articles.filter(published=True, manufacturer=request.POST.get('sort_by')).order_by('union_name', 'palette'),
+        }
+    else:
+        extra_context = {
+            'category': category,
+            'child_categories': category.get_children().filter(published=True).order_by('name'),
+            'child_articles': category.articles.filter(published=True).order_by('union_name', 'palette'),
+        }
     return direct_to_template(request, 'eshop/articlecategory_detail.html', extra_context=extra_context)
