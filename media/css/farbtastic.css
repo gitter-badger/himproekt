@@ -38,6 +38,12 @@
 /**
  * Adminpanel add css
  */
+.selector {width: 850px;float: left;
+}
+.selector-available, .selector-chosen {width: 400px;}
+.selector select{width:400px}
+.selector .selector-available input {width: 360px;}
+
 #articleitem_form div.field-property_name1, #articleitem_form div.field-property_value1, #articleitem_form div.field-property_unit1,
 #articleitem_form div.field-property_name2, #articleitem_form div.field-property_value2, #articleitem_form div.field-property_unit2,
 #articleitem_form div.field-property_name3, #articleitem_form div.field-property_value3, #articleitem_form div.field-property_unit3,
