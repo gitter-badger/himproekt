@@ -12,9 +12,9 @@ class NewsManager(models.Manager):
     def all_news(self):
         return self.get_query_set().filter(published=True)
 
-class CertificateManager(models.Manager):
+class FlatPageImageManager(models.Manager):
 
-    def all_certificates(self):
+    def all_flatpageimages(self):
         return self.get_query_set().filter(published=True)
 
 class Constant(models.Model):
@@ -79,21 +79,29 @@ class News(models.Model):
         verbose_name_plural = _('news_pages')
         ordering = ['created_date']
 
-class Certificate(models.Model):
+class FLatPageImage(models.Model):
     """ Model for certificates."""
 
-    name         = models.CharField(_('name'), max_length=255, unique=True)
+    name = models.CharField(_('name'), max_length=255, unique=True)
+    PAGE = (
+        ('O', u'О магазине'),
+        ('S', u'Сотрудничество'),
+        ('K', u'Для конкурентов'),
+        ('D', u'Доставка и оплата'),
+        ('C', u'Контакты'),
+    )
+    page = models.CharField(u'Страница',max_length=1, choices=PAGE, blank=True)
     content      = models.TextField(_('content'))
-    image        = models.ImageField(_('image'), upload_to="certificate", blank=True)
+    image        = models.ImageField(_('image'), upload_to="flatpageimages", blank=True)
     created_date = CreationDateTimeField(_('creation date'))
     updated_date = ModificationDateTimeField(_('modification date'))
 
-    objects = CertificateManager()
+    objects = FlatPageImageManager()
 
     def __unicode__(self):
         return unicode(self.name)
 
     class Meta:
-        verbose_name = _('certificate')
-        verbose_name_plural = _('certificates')
+        verbose_name = _('flatpageimage')
+        verbose_name_plural = _('flatpageimages')
         ordering = ['created_date']

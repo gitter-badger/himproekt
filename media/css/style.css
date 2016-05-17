@@ -20,7 +20,6 @@ body {
 @media screen and (min-width: 1200px) {
     body {width: 1200px;}
 }
-
 @font-face {
     font-family: 'Georgia';
     font-weight: normal;
@@ -39,7 +38,6 @@ a:hover{text-decoration: underline}
 @media screen and (min-width: 1200px) {
     .search {width: 79%;}
 }
-
 .search input {
   border: none;
 }
