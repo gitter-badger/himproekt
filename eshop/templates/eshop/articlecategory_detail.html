@@ -38,9 +38,9 @@
     <form method="post" id="sort_by">
         {% csrf_token %}
         Выбрать производителя: <select name="sort_by" onchange="submit();">
-        {% for article in child_articles.all %}
+        {% for article in filter_articles %}
         {% ifchanged article.manufacturer %}
-            <option value="{{ article.manufacturer }}" name="{{ article.manufacturer }}" {% if request.POST.sort_by == article.manufacturer %}selected{% endif %}> {{ article.manufacturer }}
+            <option value="{{ article.manufacturer }}" name="{{ article.manufacturer }}" {% if request.POST.sort_by == article.manufacturer %}selected{% endif %}> {% if article.manufacturer == "" %}Все производители{% endif %}{{ article.manufacturer }}
                 </option>
             {{ article.manufacturer }}
         {% endifchanged %}
