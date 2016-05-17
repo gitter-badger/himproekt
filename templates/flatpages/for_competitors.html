@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load comments i18n %}
+{% load thumbnail %}
+
+{% block description %}
+    {% block title %}{% block keywords %}{{ flatpage.name }}{% endblock %} :: {{ block.super }}{% endblock %}
+{% endblock %}
+
+{% block content %}
+<section>
+    <div id="breadcrumbs">
+        <a href="/">Главная</a> » {{ flatpage.title }}
+    </div>
+    <div id="socseti">
+    <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter,viber"></div>
+    </div>
+    <h2 class="only_cat">{{ flatpage.title }}</h2>
+    <div id="certif">{% for certificate in flatpageimages_smile %}
+        {% thumbnail certificate.image "800" as im %}
+                <img src="{{ im.url }}" alt="{{ certificate.name }}">
+        {% endthumbnail %}
+    {% endfor %}
+    </div>
+    </section>
+{% if flatpage.enable_comments %}
+{% get_comment_form for flatpage as form %}
+<form id="comments-form" action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+        <tr><td colspan="2"><input type="submit" value="{% trans "Post" %}"></td></tr>
+        <tr><td colspan="2"><input type="hidden" name="next" value="{{ flatpage.get_absolute_url }}"></td></tr>
+    </table>
+</form>
+<section id="item-comments">
+    {% render_comment_list for flatpage %}
+</section>
+{% endif %}
+{% endblock %}
