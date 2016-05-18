@@ -88,13 +88,13 @@ def category_detail(request, slug):
             'category': category,
             'child_categories': category.get_children().filter(published=True).order_by('name'),
             'child_articles': category.articles.filter(published=True, manufacturer=request.POST.get('sort_by')).order_by('union_name', 'palette'),
-            'filter_articles': category.articles.filter(published=True).order_by('manufacturer'),
+            'filter_articles': category.articles.exclude(manufacturer="").order_by('manufacturer'),
         }
     else:
         extra_context = {
             'category': category,
             'child_categories': category.get_children().filter(published=True).order_by('name'),
             'child_articles': category.articles.filter(published=True).order_by('union_name', 'palette'),
-            'filter_articles': category.articles.values('manufacturer').filter(published=True).order_by('manufacturer'),
+            'filter_articles': category.articles.exclude(manufacturer="").order_by('manufacturer'),
         }
     return direct_to_template(request, 'eshop/articlecategory_detail.html', extra_context=extra_context)
