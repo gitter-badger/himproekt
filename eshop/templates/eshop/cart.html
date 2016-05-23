@@ -12,9 +12,9 @@
 		<form name="cart" method="post" action="{% url send_cart %}">
 			{% csrf_token %}
 			<tr>
-				<th>{% trans "name"|capfirst %}<a></th>
+				<th>{% trans "image"|capfirst %}</th>
+                <th>{% trans "name"|capfirst %}<a></th>
 				<th>{% trans "color"|capfirst %}</th>
-                <th>{% trans "palette"|capfirst %}</th>
                 <th>{% trans "price"|capfirst %}</th>
 				<th>{% trans "quantity"|capfirst %}</th>
 				<th>{% trans "total"|capfirst %}</th>
@@ -22,13 +22,17 @@
 			</tr>
 			{% for item in cart %}
 			<tr class="{% cycle regular,alt %}">
-				<td><a class="item" href="{{ item.item.get_absolute_url }}">{{ item.item.name }}</a></td>
-                <td class="article-small-column">{{ item.color }}</td>
-                <td class="article-small-column"><i style="background-color: {{ item.item.palette }}"></i></td>
+				<td class="article-small-column">
+                    {% thumbnail item.item.image "x50" as im %}
+                    <img src="{{ im.url }}" alt="{{ item.item.name }}">
+                    {% endthumbnail %}
+                </td>
+                <td><a class="item" href="{{ item.item.get_absolute_url }}">{{ item.item.name }}</a></td>
+                <td class="article-small-column">{{ item.item.color }}</td>
                 <td class="article-small-column">{{ item.get_price }} {% trans "usd" %}</td>
 				<td class="article-small-column"><input name="{{ item.id }}" type="text" value="{{ item.quantity }}" size="8"></td>
 				<td class="article-small-column">{{ item.get_total_price }} {% trans "usd" %}</td>
-                <td class="column-center"><a href="{% url add_to_cart item.item.pk 0 %}">Удалить</a></td>
+                <td class="column-center"><a href="{% url add_to_cart item.item.pk 0 %}"></a></td>
 			</tr>
 			{% endfor %}
 			<tfoot>

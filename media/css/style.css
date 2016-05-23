@@ -563,6 +563,8 @@ section div#contact_form .submit {
     -moz-border-radius: 5px;
 }
 
+table#artile-table-list td.column-center {width:30px;text-align: right}
+table#artile-table-list td.column-center a{display: block;width: 25px;height: 25px;margin: auto;background: url("../img/del.png") no-repeat}
 /** RESET AND LAYOUT
 ===================================*/
 
