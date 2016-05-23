@@ -48,9 +48,9 @@
                 {% if article.color %}
                 <p>{{ article.color|upper }}</p>
                 <p style="background-color: {{ article.palette }}">
-                    {% if article.image %}
-                    {% thumbnail article.image "x50" as im %}
-                        {% thumbnail article.image "x600" as imbig %}
+                    {% if article.articleimage.image %}
+                    {% thumbnail article.articleimage.image "x50" as im %}
+                        {% thumbnail article.articleimage.image "x600" as imbig %}
                         <a href="{{ imbig.url }}" data-lightbox="{{ article.id }}" data-title="{{ category.name }}. {{ article.color }}"><img src="{{ im.url }}" alt="{{ category.name }}. {{ article.color }}"></a>
                         {% endthumbnail %}
                     {% endthumbnail %}
