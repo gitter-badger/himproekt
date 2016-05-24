@@ -578,7 +578,8 @@ div.item_add_visible {
 div.item_add_hidden{display: block}
 div.item_add_visible .popup-content{
     position: fixed;
-    margin:25%;
+    right: 25%;
+    top: 30%;
     width: 50%;
     background: #ef7d18;
     padding: 10px;

@@ -75,7 +75,7 @@ function addToCart(id) {
                     setTimeout(function () {
                         $('#item-add-box').addClass('item_add_hidden');
                         $('#item-add-box').removeClass('item_add_visible');
-                    }, 2500);
+                    }, 3000);
                     $('#cart-quantity').html(data['total_count']);
                     $('#cart-price').html(data['total_price']);
                 }
