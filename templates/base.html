@@ -76,7 +76,9 @@
         {{ constants.adres_footer|safe }}
     </footer>
 	{{ constants.google_analytics|safe }}
-	<span id="item-add-box" class="item_add_hidden">Товар добавлен в корзину!</span>
+	<div id="item-add-box" class="item_add_hidden">
+        <div class="popup-content">Товар добавлен в корзину!
+    </div>
     <script src="{{ MEDIA_URL }}js/lightbox.js" type="text/javascript"></script>
     </body>
 </html>

@@ -448,7 +448,7 @@ section ul#items li form span.minus, section ul#items li form span.plus {
     border: 1px solid #ddd;
     cursor:pointer;}
 section ul#items li div.palette a img {float:left;max-width: 50px;}
-span.item_add_hidden,span.item_add_visible {
+div.1item_add_hidden,div.1item_add_visible {
     display: none;
     position: fixed;
     right: 58px;
@@ -466,7 +466,7 @@ span.item_add_hidden,span.item_add_visible {
     text-align: center;
     font-family: 'PT Sans',sans-serif;
 }
-span.item_add_visible {display: block;}
+div.1item_add_visible {display: block;}
 
 section ul.tabs__caption {
     height: 28px;
@@ -565,6 +565,33 @@ section div#contact_form .submit {
 
 table#artile-table-list td.column-center {width:30px;text-align: right}
 table#artile-table-list td.column-center a{display: block;width: 25px;height: 25px;margin: auto;background: url("../img/del.png") no-repeat}
+
+div.item_add_visible {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+    background-color: RGBA(0,0,0,0.7);
+    height: 100%;
+    width: 100%;
+}
+div.item_add_hidden{display: block}
+div.item_add_visible .popup-content{
+    position: fixed;
+    margin:25%;
+    width: 50%;
+    background: #ef7d18;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 0.9em;
+    text-align: center;
+    font-family: 'PT Sans',sans-serif;
+}
 /** RESET AND LAYOUT
 ===================================*/
 
