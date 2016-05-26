@@ -11,7 +11,7 @@ ADMINS = (
 
 MANAGERS = (
     ('Noel', 'nomax.com.ua@gmail.com'),
-    #('Manager', 'himproekt2015@gmail.com'),
+    ('Manager', 'himproekt2015@gmail.com'),
 )
 
 EMAIL_HOST = 'smtp.gmail.com'
