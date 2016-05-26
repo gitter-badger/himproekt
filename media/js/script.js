@@ -97,3 +97,10 @@ $(function(){
             }
         });
 });
+
+function show() {
+    document.getElementById('cargo-inform').style.display='block';
+    }
+    function hide() {
+        document.getElementById('cargo-inform').style.display='none';
+    }

@@ -530,12 +530,26 @@ section div#contact_form input {
     height: 25px
 }
 
-section div#contact_form table#tb_del td{padding-right:15px}
-section div#contact_form table#tb_del td input{height:20px}
+section div#contact_form table.tb_del td{padding-right:15px}
+section div#contact_form table.tb_del td input{height:20px;width:20px}
 section div#contact_form form {
     width: 400px;
 }
-
+section div#contact_form div#cargo-inform{display:none;font-size:0.8em}
+section div#contact_form div#cargo-inform select{width: auto;background: #ffffff;display: inline-block;
+    border: 1px solid #EF7D18;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    height: 25px;padding: 0 15px;
+    }
+section div#contact_form div#cargo-inform label{width: 30%;display: inline-block;margin-top: 25px;padding: 0 0 0 30px}
+section div#contact_form div#cargo-inform input{width: 25%;background: #ffffff;display: inline-block;
+    border: 1px solid #EF7D18;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    height: 25px;}
 section div#contact_form textarea {
     width: 395px;
     height: 100px;

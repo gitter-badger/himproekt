@@ -56,10 +56,27 @@
 					<input type="text" name="phone" id="phone" class="validate[required]" size="50" />
 					
 					<label for="pay">* Способ оплаты: </label>
-					<table id="tb_del">
+					<table class="tb_del">
 						<tr><td><input type="radio" name="pay" value="Безналичный расчет" id="pay" class="validate[required]" /></td><td>Безналичный расчет</td></tr>
 						<tr><td><input type="radio" name="pay" value="Водителю по факту доставки" id="pay" class="validate[required]" /></td><td>Курьеру по факту доставки</td></tr>
-						</table>
+					</table>
+
+                    <label for="cargo">* Способ доставки: </label>
+					<table class="tb_del">
+						<tr><td><input type="radio" name="cargo" value="Самовывоз" id="cargo" class="validate[required]" onChange="hide()" /></td><td>Самовывоз</td></tr>
+						<tr><td><input type="radio" name="cargo" value="Служба доставки" id="cargo" class="validate[required]" onChange="show()" /></td><td>Служба доставки</td></tr>
+					</table>
+                    <div id="cargo-inform">
+                    <select>
+                        <option name="cargo-info" value="Новая почта" id="cargo-info" class="validate[required]">Новая почта</option>
+                        <option name="cargo-info" value="Ин-Тайм" id="cargo-info" class="validate[required]">Ин-Тайм</option>
+                        <option name="cargo-info" value="DELIVERY" id="cargo-info" class="validate[required]">DELIVERY</option>
+                        <option name="cargo-info" value="Укрпочта" id="cargo-info" class="validate[required]">Укрпочта</option>
+                    </select>
+                        <label for="post-number">* Номер отделения:</label>
+					    <input type="text" name="post-number" id="post-number" class="validate[required]" size="10" />
+                    </div>
+
 					<label for="text">Примечание:</label>
 					<textarea name="text" id="text" rows="5" cols="40"></textarea>
 					<br />

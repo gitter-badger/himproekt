@@ -94,11 +94,15 @@ def send_cart(request):
             return redirect('/eshop/cart')
 
         if request.POST.get('submit') == u'Оформить заказ':
-            message = u"Ф.И.О. - %s\ne-mail: %s\nТелефон: %s\nСпособ оплаты: %s\nПримечание: %s\n \n" % (request.POST.get('name'),
-                    request.POST.get('email'),
-                    request.POST.get('phone'),
-                    request.POST.get('pay'),
-                    request.POST.get('text', ''))
+            message = u"Ф.И.О. - %s\ne-mail: %s\nТелефон: %s\nСпособ оплаты: %s\nСпособ доставки: %s\nСлужба доставки: %s\nНомер почтового отделения: %s\nПримечание: %s\n \n" % (
+                request.POST.get('name'),
+                request.POST.get('email'),
+                request.POST.get('phone'),
+                request.POST.get('pay'),
+                request.POST.get('cargo'),
+                request.POST.get('cargo-info'),
+                request.POST.get('post-number'),
+                request.POST.get('text', ''))
             for item in cart:
                 message += u"%s, %s шт. (цена за шт. %s грн.) - Итого: %s грн.\n" % (item, item.quantity, item.price, item.get_total_price())
             message += u"\nОбщая сумма заказа: %s грн." % (cart.total_price())
