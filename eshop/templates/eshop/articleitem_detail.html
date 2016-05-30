@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load comments i18n cache %}
-
+{% block seourl %}
+    {% with item.main_category.get_children_articles as articles %}
+	    {% for article in articles %}
+            {% if forloop.first %}<link href="{{ article.get_absolute_url }}" rel="canonical" />{% endif %}
+        {% endfor %}
+    {% endwith %}
+{% endblock %}
 {% block extrahead %}
 {% endblock %}
 
