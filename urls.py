@@ -3,13 +3,20 @@ from django.contrib import admin
 from django.views.generic.simple import direct_to_template
 from django.conf import settings
 from django.views.generic.list_detail import object_detail
-from eshop.models import ArticleItem, ArticleCategorySitemap, ArticleItemSitemap
+from eshop.models import ArticleCategorySitemap, ArticleItemSitemap
 from main.models import News
 from main.views import cached_sitemap, search_view, contact, send_cart
 from hcprofile.forms import ExRegistrationForm
 from registration.backends.default.views import RegistrationView
 from hcprofile.signals import *
+from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
 admin.autodiscover()
+
+sitemaps = {
+    'eshop_categories' : ArticleCategorySitemap,
+    'eshop_items'      : ArticleItemSitemap,
+    'flatpages': FlatPageSitemap,
+}
 
 urlpatterns = patterns('',
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
@@ -19,7 +26,7 @@ urlpatterns = patterns('',
     (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page':'/production/'}),
     (r'^admin/', include(admin.site.urls)),
     #(r'^robots.txt$', include('robots.urls')),
-    (r'^sitemap\.xml$', cached_sitemap),
+    (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     (r'^captcha/', include('captcha.urls')),
     (r'^eshop/', include('eshop.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
