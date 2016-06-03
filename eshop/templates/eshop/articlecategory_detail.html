@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block description %}
-    {% block title %}{% block keywords %}{{ category.name }}{% endblock %} :: Купить в {{ block.super }}{% endblock %}
-{% endblock %}
+        {% block title %}{{ category.title }}{% endblock %}
+        {% block keywords %}{{ category.keywords }}{% endblock %}">
+        {% block description %}{{ category.descriptions }}{% endblock %}">
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href="{{ MEDIA_URL }}css/style.css" type="text/css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 {% block main_image %}
     {% thumbnail category.image "750x280" crop="center" as im %}
     <img src="{{ im.url }}" alt="{{ category.name }}" class="main_pic">

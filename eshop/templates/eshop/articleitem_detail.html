@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load comments i18n cache %}
+        {% block title %}{{ item.title }}{% endblock %}
+        {% block keywords %}{{ item.keywords }}{% endblock %}">
+        {% block description %}{{ item.descriptions }}{% endblock %}">
 {% block seourl %}
     {% with item.main_category.get_children_articles as articles %}
 	    {% for article in articles %}
@@ -11,9 +14,6 @@
 {% block extrahead %}
 {% endblock %}
 
-{% block description %}
-    {% block title %}{% block keywords %}{{ item.name }}. Отзывы и комментарии.{% endblock %} :: Купить в {{ block.super }}{% endblock %}
-{% endblock %}
 {% block main_image %}
     {% thumbnail item.main_category.image "750x280" crop="center" as im %}
     <img src="{{ im.url }}" alt="{{ item.main_category.name }}" class="main_pic">
