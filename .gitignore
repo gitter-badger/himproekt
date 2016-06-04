@@ -8,3 +8,4 @@ local_settings.py
 .geany
 /media/upload
 /media/pictures
+/.vagrant/
