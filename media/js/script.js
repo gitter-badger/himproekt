@@ -61,7 +61,7 @@ $(function() {
 function addToCart(id) {
             var item = $('#' + id + '_input');
             count = "" + item.val();
-            url = "/eshop/item/" + id + "/addtocart/" + count + "/";
+            url = "/eshop_item/" + id + "/addtocart/" + count + "/";
             $.ajax({
                 url: url,
                 type: 'GET',

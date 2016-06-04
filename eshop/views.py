@@ -11,6 +11,7 @@ from PIL import Image
 from django.views.decorators.cache import never_cache
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.views.generic.list_detail import object_detail
 from django.views.generic.simple import direct_to_template
 from django.utils import simplejson as json
 from eshop.models import ArticleItem, ArticleCategory, Cart
@@ -83,18 +84,18 @@ def show_cart(request):
 
 def category_detail(request, slug):
     category = get_object_or_404(ArticleCategory, slug=slug)
-    if request.method == "POST":
-        extra_context = {
-            'category': category,
-            'child_categories': category.get_children().filter(published=True).order_by('name'),
-            'child_articles': category.articles.filter(published=True, manufacturer=request.POST.get('sort_by')).order_by('union_name', 'palette'),
-            'filter_articles': category.articles.exclude(manufacturer="").order_by('manufacturer'),
-        }
-    else:
-        extra_context = {
-            'category': category,
-            'child_categories': category.get_children().filter(published=True).order_by('name'),
-            'child_articles': category.articles.filter(published=True).order_by('union_name', 'palette'),
-            'filter_articles': category.articles.exclude(manufacturer="").order_by('manufacturer'),
-        }
+    child_articles = category.articles.filter(published=True).order_by('union_name', 'palette')
+    manufacturer = request.GET.get('sort_by')
+    if manufacturer:
+        child_articles = child_articles.filter(manufacturer=manufacturer)
+    extra_context = {
+        'category': category,
+        'child_categories': category.get_children().filter(published=True).order_by('name'),
+        'child_articles': child_articles,
+        'filter_articles': set(category.articles.exclude(manufacturer="").order_by('manufacturer').values_list('manufacturer', flat=True)),
+    }
     return direct_to_template(request, 'eshop/articlecategory_detail.html', extra_context=extra_context)
+
+
+def articleitem_detail(request, slug, category, **kwargs):
+    return object_detail(request, slug=slug, template_object_name='item', queryset=ArticleItem.objects.filter(published="+"))

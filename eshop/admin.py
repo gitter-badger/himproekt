@@ -42,7 +42,7 @@ class ArticleItemAdmin(admin.ModelAdmin):
     list_filter  = ('action_product', 'published', 'categories')
     ordering     = ('name', 'categories', 'published')
     inlines = (ArticleImageInlineAdmin, )
-    prepopulated_fields = {"slug": ("union_name",)}
+    prepopulated_fields = {"slug": ("name",)}
     filter_horizontal = ('categories',)
     list_editable = ('price', 'currency', 'action_product', 'popular_product','new_product', 'present', 'published')
 

@@ -28,7 +28,6 @@ urlpatterns = patterns('',
     #(r'^robots.txt$', include('robots.urls')),
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
     (r'^captcha/', include('captcha.urls')),
-    (r'^eshop/', include('eshop.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^search/$', search_view, {}, 'search'),
     url(r'^news/(?P<slug>[-\w]+)/$', object_detail, {
@@ -65,4 +64,5 @@ urlpatterns = patterns('',
     (r'^robots.txt$', direct_to_template, {
         'template': 'robots.txt',
         }),
+    (r'^', include('eshop.urls')),
 )

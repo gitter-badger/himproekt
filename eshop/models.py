@@ -229,9 +229,10 @@ class ArticleItem(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
-    @models.permalink
+    #@models.permalink
     def get_absolute_url(self):
         """ return object url """
+        return '/{category}/{slug}/'.format(category=self.categories.all()[0].slug, slug=self.slug)
         if self.slug:
             return ('eshop_item_slug', (), {'slug': self.slug})
         else:

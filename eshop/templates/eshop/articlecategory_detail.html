@@ -41,15 +41,13 @@
     {% if child_articles %}
     <ul id="catalog">
     {% if filter_articles %}
-    <form method="post" id="sort_by">
-        {% csrf_token %}
+    <form method="get" id="sort_by">
         Выбрать производителя: <select name="sort_by" onchange="submit();">
-        {% for article in filter_articles %}
-        {% ifchanged article.manufacturer %}
-            <option value="{{ article.manufacturer }}" name="{{ article.manufacturer }}" {% if request.POST.sort_by == article.manufacturer %}selected{% endif %}>{{ article.manufacturer }}
+                <option value="" {% if request.GET.sort_by == '' %}selected{% endif %}>Все
                 </option>
-            {{ article.manufacturer }}
-        {% endifchanged %}
+        {% for manufacturer in filter_articles %}
+            <option value="{{ manufacturer }}" {% if request.GET.sort_by == manufacturer %}selected{% endif %}>{{ manufacturer }}
+                </option>
         {% endfor %}
             </select>
     </form>
