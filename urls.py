@@ -4,6 +4,7 @@ from django.views.generic.simple import direct_to_template
 from django.conf import settings
 from django.views.generic.list_detail import object_detail
 from eshop.models import ArticleCategorySitemap, ArticleItemSitemap
+from eshop.views import show_cart
 from main.models import News
 from main.views import cached_sitemap, search_view, contact, send_cart
 from hcprofile.forms import ExRegistrationForm
@@ -64,5 +65,6 @@ urlpatterns = patterns('',
     (r'^robots.txt$', direct_to_template, {
         'template': 'robots.txt',
         }),
+    url(r'cart/$', show_cart, name="eshop-showcart"),
     (r'^', include('eshop.urls')),
 )
