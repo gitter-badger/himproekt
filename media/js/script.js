@@ -83,9 +83,8 @@ function addToCart(id) {
         }
 
 $(function(){
-        $('#slider1').bxSlider({ auto: true, pause: 7000, controls: false});
         $.ajax({
-            url: "/eshop/item/0/addtocart/0/",
+            url: "/eshop_item/0/addtocart/0/",
             type: 'GET',
             datatype: 'json',
             error: function(xhr, status, errorThrown) {
