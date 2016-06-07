@@ -103,3 +103,20 @@ function show() {
     function hide() {
         document.getElementById('cargo-inform').style.display='none';
     }
+
+$(document).ready(function(){
+    $("#id_username").attr('placeholder', 'Ваш E-mail');
+    $("#id_email").attr('placeholder', 'Ваш E-mail');
+    $("#id_password").attr('placeholder', 'Пароль');
+    $("#id_password1").attr('placeholder', 'Пароль');
+    $("#id_password2").attr('placeholder', 'Повторите пароль');
+    $("#id_fio").attr('placeholder', 'Фамилия, Имя');
+    $("#id_city").attr('placeholder', 'Ваш город');
+    $("#id_phone").attr('placeholder', 'Телефон');
+    $("#id_street").attr('placeholder', 'Улица');
+    $("#id_house").attr('placeholder', 'Дом');
+    $("#id_flat").attr('placeholder', 'Квартира');
+    $("#id_index").attr('placeholder', 'Почтовый индекс');
+    $("#id_name").attr('placeholder', 'Ваше имя');
+    $("#id_message").attr('placeholder', 'Ваше сообщение');
+});

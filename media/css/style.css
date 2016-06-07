@@ -362,11 +362,24 @@ footer{
     width: 1000px;
     text-align: center;
     font-size: 0.7em;
+    position: relative;
 }
 @media screen and (min-width: 1200px) {
     footer {width: 1200px;}
 }
 footer p{margin: 2px}
+
+footer ul{background: url('../img/logo_free.png') no-repeat;width: 220px;height:54px;position: absolute;top:0;right:0;padding-left: 25px;}
+footer ul li{display: inline-block;margin: 15px auto;float: left;padding: 2px}
+footer ul li a{display: block;height: 31px;width: 32px;}
+footer ul li a.vk{background: url('../img/vk.png') top no-repeat;}
+footer ul li a.fb{background: url('../img/fb.png') top no-repeat;}
+footer ul li a.gp{background: url('../img/gp.png') top no-repeat;}
+footer ul li a.tw{background: url('../img/tw.png') top no-repeat;}
+footer ul li a.vk:hover{background: url('../img/vk.png') bottom no-repeat;}
+footer ul li a.fb:hover{background: url('../img/fb.png') bottom no-repeat;}
+footer ul li a.gp:hover{background: url('../img/gp.png') bottom no-repeat;}
+footer ul li a.tw:hover{background: url('../img/tw.png') bottom no-repeat;}
 
 div.slide{text-align: center}
 div.slide p {font-size: 0.8em;color:#1e003a;height: 45px}
