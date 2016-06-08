@@ -433,6 +433,8 @@ section ul#items li:first-child p.can{line-height: 20px}
 section ul#items li.empty {color: #EF7D18;}
 section ul#items li.empty form p{font-size:0.7em;line-height: 1.8em;}
 section ul#items p,section ul#items div,section ul#items form{display: inline-block;line-height: 40px;float: left;}
+section ul#items form {width: auto;}
+section ul#items form input{    padding: 2px;}
 section ul#items li p{font-size: 1em;text-align: center;text-indent: 0;width:25px}
 section ul#items li p+p{height:35px;width: 215px;line-height: 15px;margin: 22px 0 0 0;}
 section ul#items li p:nth-child(3){width: 50px;height: 50px;margin: 5px auto;border: solid 1px #1F0039;overflow: hidden;}
@@ -452,7 +454,7 @@ section ul#items li form a {display: inline-block;
     padding: 0 0 0 25px;
 }
 section ul#items li form a:hover{text-decoration: none;background: url('../img/bag_but.jpg') left bottom no-repeat;}
-section ul#items li form span.minus, section ul#items li form span.plus {
+section ul#items li form i.minus, section ul#items li form i.plus {
     width: 10px;
     height: 10px;
     background: #f2f2f2;
@@ -501,7 +503,6 @@ section table#artile-table-list a{color:#000000}
 
 section form {
     right: 0px;
-    min-height: 100%;
     margin: 0px auto;
     width: 50%;
     position: relative;}

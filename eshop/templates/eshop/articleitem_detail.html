@@ -77,9 +77,9 @@
                 {% if article.present %}
                     <p>{{ article.get_price }}</p>
                 <form>
-                    <span class="minus">-</span>
+                    <i class="minus">-</i>
                     <input type="text" name="{{ article.pk }}" id="{{ article.pk }}_input" size=4 value="1">
-                    <span class="plus">+</span>
+                    <i class="plus">+</i>
                     <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Купить</a>
                 </form>
                 {% else %}
