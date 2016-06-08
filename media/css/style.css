@@ -80,7 +80,7 @@ input[type="search"] {
 header{position: relative;padding-top:5px}
 header a#logo{background: url('../img/logo.png') 50% no-repeat;display: block;width:220px;height: 70px;float:left}
 header div#top_menu{position:relative;float: left;line-height: 20px;color:#ffffff;padding-bottom: 10px;margin: 0 0 0 26px;}
-header div#top_menu a{margin: 0 25px;color:#D0D0D0;font-size: 0.8em;line-height: 20px}
+header div#top_menu a{margin: 0 12px;color:#D0D0D0;font-size: 0.8em;line-height: 20px}
 header div#top_menu a:hover{color:#ffffff}
 
 header a#bag {
@@ -461,25 +461,6 @@ section ul#items li form span.minus, section ul#items li form span.plus {
     border: 1px solid #ddd;
     cursor:pointer;}
 section ul#items li div.palette a img {float:left;max-width: 50px;}
-div.1item_add_hidden,div.1item_add_visible {
-    display: none;
-    position: fixed;
-    right: 58px;
-    z-index: 10099;
-    top: 70px;
-    background: #ef7d18;
-    padding: 10px;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    font-weight: bold;
-    color: #ffffff;
-    font-size: 0.9em;
-    text-align: center;
-    font-family: 'PT Sans',sans-serif;
-}
-div.1item_add_visible {display: block;}
 
 section ul.tabs__caption {
     height: 28px;
@@ -517,6 +498,81 @@ section table#artile-table-list th, section table#artile-table-list td{padding: 
 section table#artile-table-list td i{padding: 0px;border: solid 1px #000000;width: 20px;height:20px;display: block;margin: auto}
 section table#artile-table-list .palette{border:solid 1px #3b3b3b; margin: 5px}
 section table#artile-table-list a{color:#000000}
+
+section form {
+    right: 0px;
+    min-height: 100%;
+    margin: 0px auto;
+    width: 50%;
+    position: relative;}
+
+section form input{
+    width: 92%;
+    margin-top: 4px;
+    padding: 10px 5px 10px 32px;
+    border: 1px solid rgb(178, 178, 178);
+    background-color: rgb(255, 255, 255);
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+    -moz-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+    box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+section form button, section a.register, section a.logout{
+    width: 50%;
+    display: block;
+    margin: 10px 0 0 25%;
+    cursor: pointer;
+    background: #EF7D18;
+    padding: 8px 5px;
+    color: #fff;
+    font-size: 16px;
+    border: 1px solid #EF7D18;
+    margin-bottom: 10px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 6px 4px rgba(0, 0, 0, 0.07) inset, 0px 0px 0px 3px rgb(254, 254, 254), 0px 5px 3px 3px rgb(210, 210, 210);
+    -moz-box-shadow: 0px 1px 6px 4px rgba(0, 0, 0, 0.07) inset, 0px 0px 0px 3px rgb(254, 254, 254), 0px 5px 3px 3px rgb(210, 210, 210);
+    box-shadow: 0px 1px 6px 4px rgba(0, 0, 0, 0.07) inset, 0px 0px 0px 3px rgb(254, 254, 254), 0px 5px 3px 3px rgb(210, 210, 210);
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+section form button.login{
+    margin: 10px 0 0 0;
+    display: inline-block;
+    width: 45%;
+}
+section a.register{
+    margin: 10px 0 0 0;
+    width: 45%;
+    display: inline-block;
+    text-align: center;
+    background: #1F0039;
+    border: 1px solid #1F0039;
+    float: right;
+}
+section a.logout{
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    background: #1F0039;
+    border: 1px solid #1F0039;
+
+}
+section form .hidden{display: none}
 
 section div#contact_form {
     width: 400px;
@@ -602,7 +658,7 @@ div.item_add_visible {
     height: 100%;
     width: 100%;
 }
-div.item_add_hidden{display: block}
+div.item_add_hidden{display: none}
 div.item_add_visible .popup-content{
     position: fixed;
     right: 25%;

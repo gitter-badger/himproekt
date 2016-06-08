@@ -7,7 +7,7 @@
 {% block content %}
 <section>
     <div id="breadcrumbs"><a href="/">Главная</a> » Корзина покупателя</div>
-    <h2 class="only_cat">Оформить заказ</h2>
+    <h1 class="only_cat">Оформить заказ</h1>
     <table id="artile-table-list">
 		<form name="cart" method="post" action="{% url send_cart %}">
 			{% csrf_token %}

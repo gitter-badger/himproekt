@@ -7,7 +7,7 @@ from django.contrib import auth
 
 def user_created(sender, user, request, **kwargs):
     form = ExRegistrationForm(request.POST)
-    userprofile = UserProfile(user=user, city = form.data['city'], phone = form.data['phone'], street = form.data['street'], house = form.data['house'], flat = form.data['flat'], index = form.data['index'], discount = 0)
+    userprofile = UserProfile(user=user, fio=form.data['fio'], phone = form.data['phone'], discount = 0)
     userprofile.save()
 
 user_registered.connect(user_created)
