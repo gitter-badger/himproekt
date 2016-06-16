@@ -1,23 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-<section>
-    <div id="breadcrumbs">
-   <a href="/">Главная</a> » Страница регистрации
-    </div>
-    <h1 class="only_cat">Регистрация</h1>
-	<form method="post" action="" id="registration_form">
-    {% csrf_token %}
-    {% for field in form %}
-        {% if field.is_hidden %}
-            <p class="hidden">{{ field.label_tag }}</p>
-            <p class="clearfix hidden">{{ field }}</p>
-        {% else %}
-            {{ field }}
-            {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
-            {% if field.errors %}<div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
-        {% endif %}
-    {% endfor %}
-    <button type="submit">Зарегистрироваться</button>
-    </form>
+    <section>
+        <div id="breadcrumbs">
+            <a href="/">Главная</a> » Страница регистрации
+        </div>
+        <h1 class="only_cat">Регистрация</h1>
+        <form method="post" action="" id="registration_form">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.is_hidden %}
+                    <p class="hidden">{{ field.label_tag }}</p>
+                    <p class="clearfix hidden">{{ field }}</p>
+                {% else %}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <div class="clearfix">{{ field.help_text }}</div>{% endif %}
+                    {% if field.errors %}
+                        <div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
+                {% endif %}
+            {% endfor %}
+            <button type="submit">Зарегистрироваться</button>
+        </form>
     </section>
+    <script type="application/javascript" src="{{ MEDIA_URL }}js/registartion.js"></script>
 {% endblock %}

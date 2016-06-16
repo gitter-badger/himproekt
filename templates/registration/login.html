@@ -6,19 +6,13 @@
         <div id="breadcrumbs">
             <a href="/">Главная</a> » Страница авторизации
         </div>
-        {% if user.is_authenticated %}
-            <h1 class="only_cat">Добро пожаловать {{ user.username }}</h1>
-            <a href="/accounts/logout/" class="logout">Выйти из аккаунта</a>
-        {% else %}
-            <h1 class="only_cat">Пожалуйста авторизируйтесь</h1>
-            <form action="{% url django.contrib.auth.views.login %}" method="post">
-                {% csrf_token %}
-                    {{ form.username }}
-                    {{ form.password }}
-                    <input type="hidden" name="next" value="/">
-                    <button type="submit" class="login">{% trans "Log in" %}</button>
-                    <a href="/accounts/register/" class="register">Зарегистрироваться</a>
-            </form>
-        {% endif %}
+        <h1 class="only_cat">Пожалуйста авторизируйтесь</h1>
+        <form action="{% url django.contrib.auth.views.login %}" method="post">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+            <button type="submit" class="login">{% trans "Log in" %}</button>
+            <a href="/accounts/register/" class="register">Зарегистрироваться</a>
+        </form>
     </section>
 {% endblock %}

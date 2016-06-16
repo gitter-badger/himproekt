@@ -5,7 +5,7 @@ $(document).ready(function () {
         maxSlides: 3,
         slideMargin: 10,
         pager: false,
-        auto: true,
+        auto: true
     });
 });
 
@@ -16,7 +16,7 @@ $(document).ready(function () {
         maxSlides: 2,
         slideMargin: 10,
         pager: false,
-        auto: true,
+        auto: true
     });
 });
 
@@ -27,7 +27,7 @@ $(document).ready(function () {
         maxSlides: 3,
         slideMargin: 10,
         pager: false,
-        auto: true,
+        auto: true
     });
 });
 
@@ -46,22 +46,22 @@ $(document).ready(function () {
         $input.change();
         return false;
     });
-});
-
-$(function() {
 
   $('ul.tabs__caption').on('click', 'li:not(.active)', function() {
     $(this)
       .addClass('active').siblings().removeClass('active')
       .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
   });
+    
+    
 
 });
 
 function addToCart(id) {
             var item = $('#' + id + '_input');
-            count = "" + item.val();
-            url = "/eshop_item/" + id + "/addtocart/" + count + "/";
+            console.log(item);
+            var count = "" + item.val();
+            var url = "/eshop_item/" + id + "/addtocart/" + count + "/";
             $.ajax({
                 url: url,
                 type: 'GET',
@@ -83,8 +83,9 @@ function addToCart(id) {
         }
 
 $(function(){
+    var url = "/eshop_item/0/addtocart/0/";
         $.ajax({
-            url: "/eshop_item/0/addtocart/0/",
+            url: url,
             type: 'GET',
             datatype: 'json',
             error: function(xhr, status, errorThrown) {

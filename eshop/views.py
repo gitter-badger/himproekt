@@ -25,8 +25,8 @@ def add_to_cart(request, object_id, quantity=0):
     except ValueError:
         object_id = 0
     item = get_object_or_404(ArticleItem, pk=object_id) if object_id else None
-    if request.session.get('cart', None):
-        cart = get_object_or_404(Cart, pk=request.session.get('cart'))
+    if request.session.get('cart', None) and Cart.objects.filter(pk=request.session.get('cart')).exists():
+        cart = Cart.objects.get(pk=request.session.get('cart'))
     else:
         cart = Cart()
         if request.user.is_authenticated():

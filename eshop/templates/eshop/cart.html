@@ -45,16 +45,20 @@
 			</tfoot>			
 	</table>
 		<h3>Контактные данные</h3>
-				<div id="contact_form">			
+				<div id="contact_form">
+                    {% if user.is_authenticated %}
+                        <h4>Здравствуйте {{ user.get_profile.fio }}.</h4>
+                        <h4>Выберите способ доставки и оплаты.</h4>
+                    {% else %}
 					<label for="name">* Фамилия, имя:</label>
-					<input type="text" name="name" id="name" class="validate[required]" size="50" />
+					<input type="text" name="name" id="name" class="validate[required]" size="50"/>
 					
 					<label for="email">* Контактный E-mail:</label>
-					<input type="text" name="email" id="email" class="validate[required,custom[email]]" size="50" />
+					<input type="text" name="email" id="email" class="validate[required,custom[email]]" size="50"/>
 					
 					<label for="phone">* Контактный телефон:</label>
-					<input type="text" name="phone" id="phone" class="validate[required]" size="50" />
-					
+					<input type="text" name="phone" id="phone" class="validate[required]" size="50"/>
+					{% endif %}
 					<label for="pay">* Способ оплаты: </label>
 					<table class="tb_del">
 						<tr><td><input type="radio" name="pay" value="Безналичный расчет" id="pay" class="validate[required]" /></td><td>Безналичный расчет</td></tr>
@@ -80,6 +84,7 @@
 					<label for="text">Примечание:</label>
 					<textarea name="text" id="text" rows="5" cols="40"></textarea>
 					<br />
+                    <input type="hidden" name="honeypot" value="">
 					<input type="submit" value="Оформить заказ" class="submit" name="submit">
 				</div>
 			</form>

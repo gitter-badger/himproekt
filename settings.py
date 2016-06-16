@@ -134,6 +134,7 @@ FILE_UPLOAD_PERMISSIONS = 0644
 
 PRICE_FILE = os.path.join(PROJECT_ROOT, 'Tovar.csv')
 
+
 try:
     from local_settings import *
 except ImportError:

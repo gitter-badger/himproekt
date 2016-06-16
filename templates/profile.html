@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block content %}
+    <section>
+        <div id="breadcrumbs">
+            <a href="/">Главная</a> » Страница авторизации
+        </div>
+        <h1 class="only_cat">Добро пожаловать {{ user.get_profile.fio }}</h1>
+        {{ user.email }}
+        {% if user.get_profile.phone %}
+            {{ user.get_profile.phone }}
+        {% endif %}
+        <h2>Мои заказы</h2>
+        <ul>
+            {% for cart in user.cart_set.all %}
+                <li>{{ cart }}
+                    <table>
+                        {% for item in cart %}
+                            <tr class="{% cycle regular,alt %}">
+                                <td class="article-small-column">
+                                    {% thumbnail item.item.image "x50" as im %}
+                                        <img src="{{ im.url }}" alt="{{ item.item.name }}">
+                                    {% endthumbnail %}
+                                </td>
+                                <td><a class="item" href="{{ item.item.get_absolute_url }}">{{ item.item.name }}</a>
+                                </td>
+                                <td class="article-small-column"><i
+                                        style="background-color: {{ item.item.palette }}"></i></td>
+                                <td class="article-small-column">{{ item.get_price }}</td>
+                                <td class="article-small-column">{{ item.quantity }}</td>
+                                <td class="article-small-column">{{ item.get_total_price }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="/accounts/logout/" class="logout">Выйти из аккаунта</a>
+    </section>
+
+{% endblock %}

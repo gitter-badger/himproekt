@@ -67,6 +67,8 @@ def contact(request):
 
 def send_cart(request):
     if request.method == "POST":
+        if request.POST.get('honeypot'):
+            return redirect('/cart')
         if request.session.get('cart', None):
             cart = get_object_or_404(Cart, pk=request.session.get('cart'))
         else:
@@ -91,13 +93,16 @@ def send_cart(request):
                     else:
                         item.delete()
 
-            return redirect('/eshop/cart')
+            return redirect('/cart')
 
         if request.POST.get('submit') == u'Оформить заказ':
+            if request.user.is_authenticated():
+                cart.user = request.user
+                cart.save()
             message = u"Ф.И.О. - %s\ne-mail: %s\nТелефон: %s\nСпособ оплаты: %s\nСпособ доставки: %s\nСлужба доставки: %s\nНомер почтового отделения: %s\nПримечание: %s\n \n" % (
-                request.POST.get('name'),
-                request.POST.get('email'),
-                request.POST.get('phone'),
+                request.POST.get('name', request.user.get_profile().fio),
+                request.POST.get('email', request.user.email),
+                request.POST.get('phone', request.user.get_profile().phone),
                 request.POST.get('pay'),
                 request.POST.get('cargo'),
                 request.POST.get('cargo-info'),
