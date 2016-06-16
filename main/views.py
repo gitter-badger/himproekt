@@ -111,5 +111,6 @@ def send_cart(request):
             for item in cart:
                 message += u"%s, %s шт. (цена за шт. %s грн.) - Итого: %s грн.\n" % (item, item.quantity, item.price, item.get_total_price())
             message += u"\nОбщая сумма заказа: %s грн." % (cart.total_price())
+            del request.session['cart']
             mail_managers("User cart", message, fail_silently=True)
     return redirect('/')
