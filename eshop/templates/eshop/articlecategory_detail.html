@@ -40,7 +40,7 @@
     {% endif %}
     {% if child_articles %}
     <ul id="catalog">
-    {% if filter_articles %}
+    {% if filter_articles|length > 1 %}
     <form method="get" id="sort_by">
         {% for manufacturer in filter_articles %}
             <input type="checkbox" name="sort_by" value="{{ manufacturer }}" onclick="submit();" {% if manufacturer in selected_manufactures %}checked{% endif %}>{{ manufacturer }}
