@@ -508,7 +508,7 @@ section form {
     position: relative;}
 
 section form input{
-    width: 92%;
+    width: 5%;
     margin-top: 4px;
     padding: 10px 5px 10px 32px;
     border: 1px solid rgb(178, 178, 178);
@@ -527,6 +527,8 @@ section form input{
     -moz-transition: all 0.2s linear;
     -o-transition: all 0.2s linear;
     transition: all 0.2s linear;
+    display: inline-block;
+    margin-left: 30px;
 }
 section form button, section a.register, section a.logout{
     width: 50%;

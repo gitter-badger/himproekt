@@ -42,14 +42,9 @@
     <ul id="catalog">
     {% if filter_articles %}
     <form method="get" id="sort_by">
-        Выбрать производителя: <select name="sort_by" onchange="submit();">
-                <option value="" {% if request.GET.sort_by == '' %}selected{% endif %}>Все
-                </option>
         {% for manufacturer in filter_articles %}
-            <option value="{{ manufacturer }}" {% if request.GET.sort_by == manufacturer %}selected{% endif %}>{{ manufacturer }}
-                </option>
+            <input type="checkbox" name="sort_by" value="{{ manufacturer }}" onclick="submit();" {% if manufacturer in selected_manufactures %}checked{% endif %}>{{ manufacturer }}
         {% endfor %}
-            </select>
     </form>
     {% endif %}
         {% for article in child_articles.all %}

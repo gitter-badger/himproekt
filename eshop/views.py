@@ -85,14 +85,15 @@ def show_cart(request):
 def category_detail(request, slug):
     category = get_object_or_404(ArticleCategory, slug=slug)
     child_articles = category.articles.filter(published=True).order_by('union_name', 'palette')
-    manufacturer = request.GET.get('sort_by')
-    if manufacturer:
-        child_articles = child_articles.filter(manufacturer=manufacturer)
+    manufacturers = request.GET.getlist('sort_by')
+    if manufacturers:
+        child_articles = child_articles.filter(manufacturer__in=manufacturers)
     extra_context = {
         'category': category,
         'child_categories': category.get_children().filter(published=True).order_by('name'),
         'child_articles': child_articles,
         'filter_articles': set(category.articles.exclude(manufacturer="").order_by('manufacturer').values_list('manufacturer', flat=True)),
+        'selected_manufactures': manufacturers,
     }
     return direct_to_template(request, 'eshop/articlecategory_detail.html', extra_context=extra_context)
 
