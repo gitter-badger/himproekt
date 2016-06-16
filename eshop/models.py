@@ -229,14 +229,17 @@ class ArticleItem(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
-    #@models.permalink
     def get_absolute_url(self):
         """ return object url """
         return '/{category}/{slug}/'.format(category=self.categories.all()[0].slug, slug=self.slug)
-        if self.slug:
-            return ('eshop_item_slug', (), {'slug': self.slug})
+
+    def get_cannonical_url(self):
+        try:
+            cannonical_article = ArticleItem.objects.filter(union_name=self.union_name).order_by('palette')[0]
+        except IndexError:
+            return self.get_absolute_url()
         else:
-            return ('eshop_item', (), {'object_id': self.pk})
+            return cannonical_article.get_absolute_url()
 
     class Meta:
         verbose_name = _('article')

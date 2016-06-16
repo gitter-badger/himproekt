@@ -5,11 +5,7 @@
         {% block keywords %}{{ item.keywords }}{% endblock %}">
         {% block description %}{{ item.descriptions }}{% endblock %}">
 {% block seourl %}
-    {% with item.main_category.get_children_articles as articles %}
-	    {% for article in articles %}
-            {% if forloop.first %}<link href="{{ article.get_absolute_url }}" rel="canonical" />{% endif %}
-        {% endfor %}
-    {% endwith %}
+    <link href="{{ item.get_cannonical_url }}" rel="canonical" />
 {% endblock %}
 {% block extrahead %}
 {% endblock %}
