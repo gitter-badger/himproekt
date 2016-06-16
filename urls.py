@@ -69,6 +69,9 @@ urlpatterns = patterns('',
                        (r'^robots.txt$', direct_to_template, {
                            'template': 'robots.txt',
                        }),
+                       (r'^googlee692c507b95c2813.html$', direct_to_template, {
+                           'template': 'goggle-vertif.html',
+                       }),
                        url(r'cart/$', show_cart, name="eshop-showcart"),
                        (r'^', include('eshop.urls')),
                        )
