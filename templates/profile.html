@@ -14,9 +14,17 @@
         <h2>Мои заказы</h2>
         <ul>
             {% for cart in user.cart_set.all %}
-                <li>{{ cart }}
-                    {% if cart.quantity > 0 %}
+                {% if cart.quantity > 0 %}
+                    <li>{{ cart }}
                         <table>
+                            <tr>
+                                <th>Фото</th>
+                                <th>Название<a></th>
+                                <th>Цвет</th>
+                                <th>Цена</th>
+                                <th>Количество</th>
+                                <th>Всего</th>
+                            </tr>
                             {% for item in cart %}
                                 <tr class="{% cycle regular,alt %}">
                                     <td class="article-small-column">
@@ -41,8 +49,8 @@
                             </tr>
                             </tfoot>
                         </table>
-                    {% endif %}
-                </li>
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
         <a href="/accounts/logout/" class="logout">Выйти из аккаунта</a>
