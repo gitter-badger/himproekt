@@ -172,7 +172,7 @@ nav.topnav ul > li:hover > a{
     background-image: -moz-linear-gradient(#efa218, #EF7D18);
     background-image: -webkit-gradient(linear, left top, left bottom, from(#efa218), to(#EF7D18));
     background-image: -webkit-linear-gradient(#efa218, #EF7D18);
-    background-image: -o-linear-gradient#efa218, #EF7D18);
+    background-image: -o-linear-gradient(#efa218, #EF7D18);
     background-image: linear-gradient(#efa218, #EF7D18);
     color: #fafafa;
 }
@@ -579,6 +579,8 @@ section form button.login{
     display: inline-block;
     width: 45%;
 }
+form#sort_by{width:100%;background: #c6c7c6;padding: 10px 0;}
+form#sort_by p{font-size: 1em;float: left;width: 100%;text-align: center}
 section a.register{
     margin: 10px 0 0 0;
     width: 45%;
@@ -896,7 +898,7 @@ div.item_add_visible .popup-content{
 	padding: 10px;
 }
 
-* lightbox */
+/* lightbox */
 /* Preload images */
 body:after {
   content: url(../img/close.png) url(../img/loading.gif) url(../img/prev.png) url(../img/next.png);
