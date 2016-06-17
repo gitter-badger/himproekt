@@ -44,7 +44,7 @@
     <form method="get" id="sort_by">
     <p>Выберите производителя</p>
         {% for manufacturer in filter_articles %}
-            <input type="checkbox" name="sort_by" value="{{ manufacturer }}" onclick="submit();" {% if manufacturer in selected_manufactures %}checked{% endif %}>{{ manufacturer }}
+            <input type="checkbox" name="sort_by" value="{{ manufacturer }}" onclick="submit();" {% if manufacturer in selected_manufactures %}checked{% endif %}><label for="checkbox">{{ manufacturer }}</label>
         {% endfor %}
     </form>
     {% endif %}

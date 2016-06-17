@@ -6,33 +6,42 @@
         <div id="breadcrumbs">
             <a href="/">Главная</a> » Страница авторизации
         </div>
-        <h1 class="only_cat">Добро пожаловать {{ user.get_profile.fio }}</h1>
-        {{ user.email }}
+        <h1 class="only_cat">Добро пожаловать {{ user.get_profile.fio }}!</h1>
+        <p>Ваш email: {{ user.email }}</p>
         {% if user.get_profile.phone %}
-            {{ user.get_profile.phone }}
+            <p>Ваш телефон: {{ user.get_profile.phone }}</p>
         {% endif %}
         <h2>Мои заказы</h2>
         <ul>
             {% for cart in user.cart_set.all %}
                 <li>{{ cart }}
-                    <table>
-                        {% for item in cart %}
-                            <tr class="{% cycle regular,alt %}">
-                                <td class="article-small-column">
-                                    {% thumbnail item.item.image "x50" as im %}
-                                        <img src="{{ im.url }}" alt="{{ item.item.name }}">
-                                    {% endthumbnail %}
-                                </td>
-                                <td><a class="item" href="{{ item.item.get_absolute_url }}">{{ item.item.name }}</a>
-                                </td>
-                                <td class="article-small-column"><i
-                                        style="background-color: {{ item.item.palette }}"></i></td>
-                                <td class="article-small-column">{{ item.get_price }}</td>
-                                <td class="article-small-column">{{ item.quantity }}</td>
-                                <td class="article-small-column">{{ item.get_total_price }}</td>
+                    {% if cart.quantity > 0 %}
+                        <table>
+                            {% for item in cart %}
+                                <tr class="{% cycle regular,alt %}">
+                                    <td class="article-small-column">
+                                        {% thumbnail item.item.image "x50" as im %}
+                                            <img src="{{ im.url }}" alt="{{ item.item.name }}">
+                                        {% endthumbnail %}
+                                    </td>
+                                    <td><a class="item" href="{{ item.item.get_absolute_url }}">{{ item.item.name }}</a>
+                                    </td>
+                                    <td class="article-small-column"><i
+                                            style="background-color: {{ item.item.palette }}"></i></td>
+                                    <td class="article-small-column">{{ item.get_price }} грн</td>
+                                    <td class="article-small-column">{{ item.quantity }} шт.</td>
+                                    <td class="article-small-column">{{ item.get_total_price }} грн.</td>
+                                </tr>
+                            {% endfor %}
+                            <tfoot>
+                            <tr>
+                                <td colspan="4">Всего</td>
+                                <td class="article-small-column"><strong>{{ cart.quantity }} шт.</strong></td>
+                                <td class="article-small-column"><strong>{{ cart.total_price }}</strong> грн.</td>
                             </tr>
-                        {% endfor %}
-                    </table>
+                            </tfoot>
+                        </table>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
