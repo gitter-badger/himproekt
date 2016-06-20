@@ -834,6 +834,7 @@ section ul#items li a.wishlist {
     background: url("../img/wishlist.png") top center no-repeat;
     margin-top: 13px;
     cursor: pointer;
+    
 }
 section ul#items li a.wishlist:hover {
     background: url("../img/wishlist.png") bottom center no-repeat;
