@@ -91,7 +91,10 @@
                             <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Заказать</a>
                         </form>
                     {% endif %}
+                        <form class="wishlist_form" method="post" action="">
+                        <input type="hidden" value="{{ article.pk }}">
                     <a class="wishlist" title="В список желаний"></a>
+                        </form>
                     </li>
                     {% endif %}
                 {% endfor %}
