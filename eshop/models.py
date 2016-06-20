@@ -96,7 +96,7 @@ class ArticleItem(models.Model):
     order = models.PositiveIntegerField(_('order'), default=0, db_column='_order')
     union_name = models.CharField(u'Название товара', max_length=255, blank=True)
     name = models.CharField(_('name'), max_length=255)
-    slug = models.SlugField(_('Slug'), max_length=255, editable=True)
+    slug = models.SlugField(_('Slug'), max_length=255, editable=True, unique=True)
     title = models.CharField(_('title'), max_length=255, blank=True)
     keywords = models.CharField(_('keywords'), max_length=255, blank=True)
     descriptions = models.CharField(_('descriptions'), max_length=255, blank=True)

@@ -1,4 +1,7 @@
+from django.conf.urls import patterns
 from django.contrib import admin
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect, get_object_or_404
 from mptt.admin import MPTTModelAdmin
 from eshop.models import ArticleCategory, ArticleItem, Cart, CartItem, ArticleImage
 from eshop.forms import ArticleItemAdminForm, CartItemAdminForm
@@ -51,6 +54,26 @@ class ArticleItemAdmin(admin.ModelAdmin):
             kwargs['widget'] = ColorPickerWidget
         return super(ArticleItemAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
+    def get_urls(self):
+        urls = super(ArticleItemAdmin, self).get_urls()
+        my_urls = patterns('',
+                           (r'^(.+)/clone/$', self.admin_site.admin_view(self.clone_item)),
+                           )
+        return my_urls + urls
+
+    def clone_item(self, request, object_id):
+        obj = get_object_or_404(self.model, pk=object_id)
+        new_obj = self.model()
+        for field in [f.name for f in self.model._meta.fields if not f.name in ['id', 'categories']]:
+
+            setattr(new_obj, field, getattr(obj, field))
+        new_obj.save()
+        for category in obj.categories.all():
+            new_obj.categories.add(category)
+        return redirect(to='{}{}/{}/{}/'.format(reverse('admin:index'),
+                                                self.model._meta.app_label,
+                                                self.model._meta.module_name,
+                                                new_obj.pk))
 
     class Media:
         js = ('tiny_mce/tiny_mce.js', 'tiny_mce/init.js')
