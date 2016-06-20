@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import string
 
-from Crypto.Random import random
+import random
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
