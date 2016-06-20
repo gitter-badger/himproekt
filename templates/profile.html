@@ -54,6 +54,7 @@
             {% endfor %}
         </ul>
     <h2>Мой список желаний</h2>
+    {{ user.wishlist.all }}
     <h2>Недавно просмотренные</h2>
     <a href="/accounts/logout/" class="logout">Выйти из аккаунта</a>
     </section>

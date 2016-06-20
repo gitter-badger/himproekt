@@ -6,11 +6,13 @@ Author:
 Description:
     ecomerce models
 """
+from __future__ import unicode_literals
 import threading
 import random
 
 from django.db import models
 from django.contrib.sitemaps import Sitemap
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
 from django_extensions.db.fields import (CreationDateTimeField,
                                          ModificationDateTimeField, AutoSlugField)
@@ -24,6 +26,7 @@ from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
 import tagging
 from tagging.models import Tag
 from sorl.thumbnail.shortcuts import get_thumbnail
+
 
 class ArticleItemManager(models.Manager):
     def popular_product(self):
@@ -46,7 +49,7 @@ class ArticleCategory(MPTTModel):
     keywords = models.CharField(_('keywords'), max_length=255, blank=True)
     descriptions = models.CharField(_('descriptions'), max_length=255, blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', verbose_name=u'Родитель')
-    #parent = models.ForeignKey('self', null=True, blank=True, related_name='children', verbose_name=u'Родитель')
+    # parent = models.ForeignKey('self', null=True, blank=True, related_name='children', verbose_name=u'Родитель')
     image = models.ImageField(_('image'), upload_to="pictures", blank=True)
     description = models.TextField(_('description'), blank=True)
     published = models.BooleanField(_('published'), default=True)
@@ -58,6 +61,7 @@ class ArticleCategory(MPTTModel):
         img_resize_url = unicode(get_thumbnail(img, '50').url)
         html = '<a class="image-picker" href="%s"><img src="%s" alt="%s"/></a>'
         return html % (self.image.url, img_resize_url, self.name)
+
     get_thumbnail_html.short_description = 'Foto'
     get_thumbnail_html.allow_tags = True
 
@@ -69,7 +73,9 @@ class ArticleCategory(MPTTModel):
     def get_random_image(self):
         """ return random article image """
         try:
-            return self.articles.exclude(published=True, present="+", image="img/no_photo.jpg").order_by('?').values_list('image', flat=True)[0]
+            return \
+            self.articles.exclude(published=True, present="+", image="img/no_photo.jpg").order_by('?').values_list(
+                'image', flat=True)[0]
         except IndexError:
             return self.image
 
@@ -101,7 +107,7 @@ class ArticleItem(models.Model):
     keywords = models.CharField(_('keywords'), max_length=255, blank=True)
     descriptions = models.CharField(_('descriptions'), max_length=255, blank=True)
     categories = TreeManyToManyField(ArticleCategory, null=True, related_name='articles')
-    #categories = models.ForeignKey(ArticleCategory, null=True, related_name='articles', verbose_name=u'Категория')
+    # categories = models.ForeignKey(ArticleCategory, null=True, related_name='articles', verbose_name=u'Категория')
     description = models.TextField(_('description'), blank=True)
     palette = models.CharField(u'Выберите цвет', max_length=7, blank=True, default="#ffffff")
     color = models.CharField(u'Название цвета', max_length=50, blank=True)
@@ -114,7 +120,7 @@ class ArticleItem(models.Model):
         ('S', u'доллар'),
         ('E', u'евро'),
     )
-    currency = models.CharField(u'Валюта',max_length=1, choices=CURRENCY, default="H")
+    currency = models.CharField(u'Валюта', max_length=1, choices=CURRENCY, default="H")
     created_date = CreationDateTimeField(_('creation date'))
     updated_date = ModificationDateTimeField(_('modification date'))
     present = models.BooleanField(u'Есть в наличии', default=True)
@@ -200,6 +206,7 @@ class ArticleItem(models.Model):
         img_resize_url = unicode(get_thumbnail(img, '50').url)
         html = '<a class="image-picker" href="%s"><img src="%s" alt="%s"/></a>'
         return html % (self.image.url, img_resize_url, self.name)
+
     get_thumbnail_html.short_description = 'Foto'
     get_thumbnail_html.allow_tags = True
 
@@ -245,7 +252,6 @@ class ArticleItem(models.Model):
         verbose_name = _('article')
         verbose_name_plural = _('articles')
         ordering = ['union_name', 'order']
-
 
 
 class ArticleImage(models.Model):
@@ -354,6 +360,19 @@ class Cart(models.Model):
         verbose_name = _('cart')
         verbose_name_plural = _('carts')
         ordering = ['-updated_date', '-created_date']
+
+
+@python_2_unicode_compatible
+class WishList(models.Model):
+    user = models.ForeignKey(User, related_name='wishlist')
+    article = models.ForeignKey(ArticleItem)
+
+    def __str__(self):
+        return '{} whish {}'.format(self.user, self.article)
+
+    class Meta:
+        verbose_name = 'wish list'
+        verbose_name_plural = 'wish lists'
 
 
 class ArticleCategorySitemap(Sitemap):

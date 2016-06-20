@@ -1,7 +1,9 @@
 {% extends "admin/change_form.html" %}
-{% load i18n %}
+{% load i18n eshop_tags %}
 
 {% block object-tools-items %}
+    {% is_wishlisted object_id as is_object_wishlisted %}
+    <li><a href="wish/">{% if is_object_wishlisted %}{% trans "Remove from wish list" %}{% else %}{% trans "Add to wish list" %}{% endif %}</a></li>
     <li><a href="clone/">{% trans "Clone" %}</a></li>
     {{ block.super }}
 {% endblock %}

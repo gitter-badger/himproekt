@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load thumbnail %}
+{% load thumbnail eshop_tags %}
 {% load comments i18n cache %}
 {% block title %}{{ item.title }}{% endblock %}
 {% block keywords %}{{ item.keywords }}{% endblock %}">
@@ -91,10 +91,13 @@
                             <a id="{{ article.pk }}" href="#" onclick="addToCart('{{ article.pk }}');return false;">Заказать</a>
                         </form>
                     {% endif %}
-                        <form class="wishlist_form" method="post" action="">
-                        <input type="hidden" value="{{ article.pk }}">
-                    <a class="wishlist" title="В список желаний"></a>
+                    {% if user.is_authenticated %}
+                        <form id="add_wishlist_form" class="wishlist_form" method="post" action="{% url add_wishlist %}">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ article.pk }}" name="article">
+                            <a class="wishlist" title="В список желаний" onclick="$('#add_wishlist_form').submit();"></a>
                         </form>
+                    {% endif %}
                     </li>
                     {% endif %}
                 {% endfor %}

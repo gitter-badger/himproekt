@@ -9,13 +9,38 @@ import os
 from PIL import Image
 
 from django.views.decorators.cache import never_cache
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
+from django.views.generic.base import View
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import FormView
 from django.views.generic.list_detail import object_detail
 from django.views.generic.simple import direct_to_template
 from django.utils import simplejson as json
-from eshop.models import ArticleItem, ArticleCategory, Cart
 
+from eshop.forms import WishListForm
+from eshop.models import ArticleItem, ArticleCategory, Cart, WishList
+
+
+class WishListView(FormView):
+
+    form_class = WishListForm
+
+    def get_success_url(self):
+        return self.request.META['HTTP_REFERER']
+
+    def form_valid(self, form):
+        article = form.cleaned_data['article']
+        if WishList.objects.filter(user=self.request.user, article=article).exists():
+            WishList.objects.filter(user=self.request.user, article=article).delete()
+        else:
+            WishList.objects.create(user=self.request.user, article=article)
+        return super(WishListView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        print 'Error'
+        return HttpResponseRedirect(self.get_success_url())
+            
 
 @never_cache
 def add_to_cart(request, object_id, quantity=0):

@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, get_object_or_404
 from mptt.admin import MPTTModelAdmin
-from eshop.models import ArticleCategory, ArticleItem, Cart, CartItem, ArticleImage
+from eshop.models import ArticleCategory, ArticleItem, Cart, CartItem, ArticleImage, WishList
 from eshop.forms import ArticleItemAdminForm, CartItemAdminForm
 from tagging.fields import TagField
 from django.utils.translation import ugettext as _
@@ -58,6 +58,7 @@ class ArticleItemAdmin(admin.ModelAdmin):
         urls = super(ArticleItemAdmin, self).get_urls()
         my_urls = patterns('',
                            (r'^(.+)/clone/$', self.admin_site.admin_view(self.clone_item)),
+                           (r'^(.+)/wish/$', self.admin_site.admin_view(self.add_to_wishlist)),
                            )
         return my_urls + urls
 
@@ -70,10 +71,15 @@ class ArticleItemAdmin(admin.ModelAdmin):
         new_obj.save()
         for category in obj.categories.all():
             new_obj.categories.add(category)
-        return redirect(to='{}{}/{}/{}/'.format(reverse('admin:index'),
-                                                self.model._meta.app_label,
-                                                self.model._meta.module_name,
-                                                new_obj.pk))
+        return redirect(to=request.META['HTTP_REFERER'])
+
+    def add_to_wishlist(self, request, object_id):
+        obj = get_object_or_404(self.model, pk=object_id)
+        if request.user.wishlist.filter(article=obj).exists():
+            WishList.objects.filter(user=request.user, article=obj).delete()
+        else:
+            WishList.objects.create(user=request.user, article=obj)
+        return redirect(to=request.META['HTTP_REFERER'])
 
     class Media:
         js = ('tiny_mce/tiny_mce.js', 'tiny_mce/init.js')
@@ -87,6 +93,7 @@ class CartItemInlineAdmin(admin.TabularInline):
     #raw_id_fields = ('item',)
     fields = ('price', 'quantity')
     readonly_fields = ('price', 'quantity')
+
 
 class CartAdmin(admin.ModelAdmin):
     """ customize cart admin page """

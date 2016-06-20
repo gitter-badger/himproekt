@@ -7,7 +7,7 @@ Description:
 """
 from django import template
 from django.contrib.flatpages.models import FlatPage
-from eshop.models import ArticleCategory
+from eshop.models import ArticleCategory, WishList
 
 register = template.Library()
 
@@ -27,3 +27,9 @@ def show_category_item(subcategory):
     """ render subcategories recursivly """
 
     return {'category': subcategory}
+
+
+@register.assignment_tag(takes_context=True)
+def is_wishlisted(context, artilce_id):
+    return WishList.objects.filter(user=context['user'], article_id=artilce_id).exists()
+
