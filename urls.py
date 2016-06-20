@@ -30,7 +30,7 @@ urlpatterns = patterns('',
                        (r'^accounts/login/$', 'django.contrib.auth.views.login'),
                        url(r'^accounts/profile/$', login_required(direct_to_template), {'template': 'profile.html'}),
                        (r'^admin/', include(admin.site.urls)),
-                       # (r'^robots.txt$', include('robots.urls')),
+                       (r'^robots.txt$', include('robots.urls')),
                        (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
                        (r'^captcha/', include('captcha.urls')),
                        (r'^comments/', include('django.contrib.comments.urls')),
@@ -65,9 +65,6 @@ urlpatterns = patterns('',
                        }),
                        (r'^popular/', direct_to_template, {
                            'template': 'popular.html',
-                       }),
-                       (r'^robots.txt$', direct_to_template, {
-                           'template': 'robots.txt',
                        }),
                        (r'^googlee692c507b95c2813.html$', direct_to_template, {
                            'template': 'goggle-vertif.html',

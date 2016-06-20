@@ -106,7 +106,8 @@ INSTALLED_APPS = (
     'south',
     'registration',
     'hcprofile',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    'robots'
 )
 
 COMMENTS_APP = 'captcha_comments'
